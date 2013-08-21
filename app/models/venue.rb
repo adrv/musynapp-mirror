@@ -1,3 +1,3 @@
 class Venue < ActiveRecord::Base
-  has_one :authentication, as: :authenticatable
+  has_one :registration, as: :registrateable
 end

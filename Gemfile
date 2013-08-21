@@ -5,13 +5,19 @@ gem 'rails', '4.0.0'
 gem 'sqlite3'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip'
+gem 'cancan'
 
 
+gem 'haml-rails'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'therubyracer', platforms: :ruby
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
+gem 'simple_form'
+gem 'quiet_assets'
 
 
 group :test do

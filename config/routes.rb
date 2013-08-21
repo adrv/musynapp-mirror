@@ -1,9 +1,32 @@
 Musynapp::Application.routes.draw do
+
+  scope module: :sign_up do
+
+    resources :registrations, only: [:new, :create]
+
+    resources :venue_registrations, only: [:new, :create] do
+      collection { get 'step_one' }
+      collection { get 'step_two' }
+      collection { get 'step_three' }
+    end
+
+    resources :band_registrations, only: [:new, :create] do
+      collection { get 'step_one' }
+      collection { get 'step_two' }
+    end
+    
+    resources :fan_registrations, only: [:new, :create] do
+      collection { get 'step_one' }
+    end
+
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

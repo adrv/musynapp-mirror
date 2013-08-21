@@ -1,0 +1,2 @@
+module Registration::FanRegistrationsHelper
+end
