@@ -1,5 +1,7 @@
 Musynapp::Application.routes.draw do
 
+  resources :fans, only: [:edit, :update]
+
   scope module: :sign_up do
 
     resources :registrations, only: [:new, :create]
@@ -8,17 +10,15 @@ Musynapp::Application.routes.draw do
       collection { get 'step_one' }
       collection { get 'step_two' }
       collection { get 'step_three' }
+      collection { get 'finish' }
     end
 
     resources :band_registrations, only: [:new, :create] do
       collection { get 'step_one' }
       collection { get 'step_two' }
+      collection { get 'finish' }
     end
     
-    resources :fan_registrations, only: [:new, :create] do
-      collection { get 'step_one' }
-    end
-
   end
 
 

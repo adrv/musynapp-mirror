@@ -1,0 +1,6 @@
+= simple_form_for @fan do |f|
+  = f.input :avatar, as: :file
+  = f.association :favorite_bands
+  = f.association :favorite_venues
+  = f.association :friends, label_method: lambda { |friend| friend.registration.username }
+  = f.button :submit

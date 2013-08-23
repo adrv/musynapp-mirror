@@ -11,7 +11,7 @@ class SignUp::RegistrationsController < ApplicationController
     if @registration.save
       session[:user_id]  = @registration.id
       @user = @registration.registrateable
-      redirect_to [:step_one, @user, :registrations ]
+      redirect_to polymorphic_url([:edit, @user])
     else
       build_secret_questions
       render :new
