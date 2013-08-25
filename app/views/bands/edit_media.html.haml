@@ -1,0 +1,6 @@
+= simple_form_for @band do |f|
+  = f.simple_fields_for :songs do |song|
+    = song.input :upload, as: :file, label: 'Upload a song'
+  = f.simple_fields_for :images do |image|
+    = image.input :upload, as: :file, label: 'Upload an image'
+  = f.button :submit

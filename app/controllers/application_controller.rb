@@ -1,11 +1,14 @@
 class ApplicationController < ActionController::Base
+
+  helper_method :current_user
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Acces denied! #{exception}"
-    redirect_to user_path current_user
+    redirect_to root_url
   end
 
   #Workaround for cancan 1.6.10 with rails4
@@ -25,6 +28,15 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= Registration.find(session[:user_id]) if session[:user_id]
+  end
+
+  def proceed_registration
+    if current_user.pending?
+      controller = current_user.registrateable_type.downcase.pluralize
+      action = current_user.advance_registration || 'show'
+      puts controller, action
+      redirect_to controller: controller, action: action
+    end
   end
 
 end

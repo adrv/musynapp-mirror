@@ -37,12 +37,14 @@
 
       .row-fluid
         .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+          - if current_user  
+            .well.sidebar-nav
+              %ul.nav.nav-list
+                %li.nav-header
+                  %i
+                    = current_user.registrateable_type + ':'
+                  = current_user.username
+                %li= link_to "Log out", logout_registrations_path, method: :delete
         .span9
           = bootstrap_flash
           = yield
