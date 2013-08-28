@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   
-  load_resource
+  load_and_authorize_resource
 
   def new
     build_secret_questions
@@ -16,6 +16,10 @@ class RegistrationsController < ApplicationController
       build_secret_questions
       render :new
     end
+  end
+
+  def login_form
+
   end
 
   def login

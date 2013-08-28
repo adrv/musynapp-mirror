@@ -6,6 +6,8 @@ gem 'sqlite3'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip'
 gem 'cancan'
+gem 'machinist'
+gem 'rake-hooks'
 
 
 gem 'haml-rails'
@@ -13,6 +15,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'jquery-fileupload-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'

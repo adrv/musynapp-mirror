@@ -1,6 +1,6 @@
 Musynapp::Application.routes.draw do
 
-  resources :venues, only: [:edit, :edit_media, :edit_schedule]
+  resources :venues, only: [:edit, :edit_media, :add_show]
   
   resources :registrations, only: [:new, :create] do
     collection { post   'login' }
@@ -11,7 +11,7 @@ Musynapp::Application.routes.draw do
 
   resources :venues, only: [:edit, :update, :show] do
     member { get 'edit_media' }
-    member { get 'edit_schedule' }
+    member { get 'add_show' }
   end
 
   resources :bands, only: [:edit, :update, :show] do

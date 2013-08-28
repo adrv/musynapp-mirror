@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
   end
   #end workaround
 
+  def current_user
+    @current_user ||= Registration.find(session[:user_id]) if session[:user_id]
+  end
 
   protected
 
@@ -26,9 +29,6 @@ class ApplicationController < ActionController::Base
     type.camelize.constantize.create
   end
 
-  def current_user
-    @current_user ||= Registration.find(session[:user_id]) if session[:user_id]
-  end
 
   def proceed_registration
     if current_user.pending?

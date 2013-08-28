@@ -11,7 +11,7 @@ class Registration < ActiveRecord::Base
 
   REGISTRATION_STEPS = { Fan:   {},
                          Band:  { edit: 'edit_media' },
-                         Venue: { edit: 'edit_media', edit_media: 'edit_schedule' }
+                         Venue: { edit: 'edit_media', edit_media: 'add_show' }
                        }
 
   before_create :set_initial_step

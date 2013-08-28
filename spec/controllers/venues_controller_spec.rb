@@ -16,9 +16,9 @@ describe VenuesController do
     end
   end
 
-  describe "GET 'edit_schedule'" do
+  describe "GET 'add_show'" do
     it "returns http success" do
-      get 'edit_schedule'
+      get 'add_show'
       response.should be_success
     end
   end

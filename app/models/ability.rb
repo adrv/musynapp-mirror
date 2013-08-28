@@ -1,27 +1,35 @@
 class Ability
   include CanCan::Ability
 
+  def can_take_step step, registrateable_class
+    can step.to_sym, registrateable_class do |obj|
+      (!obj.registration.pending? || obj.registration.current_step == step) &&
+      obj.id == @user.registrateable_id
+    end
+  end
+
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-      user ||= Registration.new # guest user (not logged in)
+      @user = user || Registration.new # guest user (not logged in)
+      registrateable = @user.registrateable
 
-      case user.registrateable_type
-        when 'Fan'
-          can :manage, Fan
-        when 'Band'
-          can [:edit, :update], Band
-          can :edit_media, Band do |band|
-            !band.registration.pending? || band.registration.current_step == 'edit_media'
-          end
-        when 'Venue'
-          can [:edit, :update], Venue
-          can :edit_media, Venue do |venue|
-            !venue..registration.pending? || venue.registration.current_step == 'edit_media'
-          end
-          can :edit_schedule, Venue do |venue|
-            !venue.registration.pending? || venue.registration.current_step == 'edit_schedule'
-          end
+      if @user.persisted?
+        can :logout, Registration
+      else
+        can [:login_form, :login, :new, :create], Registration
+      end
+
+      case registrateable
+        when Fan
+          can :manage, Fan, id: registrateable.id
+        when Band
+          can [:edit, :update], Band, id: registrateable.id
+          can_take_step 'edit_media', Band
+        when Venue
+          can [:edit, :update], Venue#, id: registrateable.id
+          can_take_step 'edit_media', Venue
+          can_take_step 'add_show', Venue
       end
 
     #

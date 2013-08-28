@@ -10,7 +10,7 @@ class Band < ActiveRecord::Base
 
   serialize :links
 
-  before_save :prepare_links, if: -> { self.links.present? }
+  before_create :prepare_links, if: -> { self.links.present? }
 
   private
 
