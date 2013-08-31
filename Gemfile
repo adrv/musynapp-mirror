@@ -2,12 +2,10 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
-gem 'sqlite3'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'paperclip'
 gem 'cancan'
 gem 'machinist'
-gem 'rake-hooks'
 
 
 gem 'haml-rails'
@@ -20,7 +18,10 @@ gem 'therubyracer', platforms: :ruby
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
+
 gem 'quiet_assets'
+gem 'haml_coffee_assets'
+gem 'execjs'
 
 
 group :test do
@@ -33,8 +34,14 @@ group :test do
   gem 'database_cleaner'
 end
 
+group :production do
+  gem 'pg'
+end
+
+group :development do
+  gem 'sqlite3'
+end
 
 group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end

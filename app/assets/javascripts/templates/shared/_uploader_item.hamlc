@@ -1,0 +1,13 @@
+%tr
+  %td =@item.name
+  %td =@item.content_type
+  %td
+    - if @item.content_type.match /image/ 
+      %img{ src: "#{@item.url}" }
+    - else if @item.content_type.match /video/
+      %video{ controls: 'true' }
+        %source{ src: "#{@item.url}", type: "#{@item.content_type}" }
+  %td
+    %button.btn.btn-danger.delete-uploaded-item{type: "button", 'data-method' => "delete", delete_href: "#{@item.delete_url}"}
+      %i.icon-trash.icon-white
+      %span Delete

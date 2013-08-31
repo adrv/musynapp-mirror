@@ -10,6 +10,8 @@ Musynapp::Application.routes.draw do
   resources :fans, only: [:edit, :update, :show]
 
   resources :venues, only: [:edit, :update, :show] do
+    resources :images, only: :destroy, shallow: true
+    resources :videos, only: :destroy, shallow: true
     member { get 'edit_media' }
     member { get 'add_show' }
   end

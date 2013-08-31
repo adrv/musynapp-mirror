@@ -1,14 +1,25 @@
 $ ->
-  $("#fileupload").fileupload
+
+  $(".delete-uploaded-item").click ->
+    $.ajax
+      url: $(@).attr('delete_href')
+      type: 'DELETE'
+      success: (rsp) =>
+        console.log rsp
+        $(@).closest('tr').fadeOut()
+
+  $("#fileupload-images, #fileupload-videos").fileupload
     dataType: 'json'
     type: 'PUT'
     done: (e, data) ->
-      for file in data.result
-        $('body').append("<br><img src=#{file.url}</img>")
-      # $.each data.result.files, (index, file) ->
-      #   $("<p/>").text(file.name).appendTo document.body
+      $form = $(@)
+      form_id = $form.attr('id')
+      console.log data
+      if errors = data.result.errors
+        $form.prepend $("<div class='alert alert-error'>#{errors[0]}</div>")
+      else
+        $("##{form_id}-tmpl").append JST['shared/uploader_item'](item: data.result)
+        
     add: (_, data)->
       # console.log data
       data.submit()
-      for file in data['files']
-        $('body').append("<br><audio controls><source src='#{file.name}' type='audio/mpeg'></audio>")
