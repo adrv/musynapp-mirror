@@ -15,21 +15,21 @@ class BandsController < ApplicationController
   end
 
   def edit_media
-    (3 - @band.songs.count).times do
-      @band.songs.build
-    end
-    (3 - @band.images.count).times do
-      @band.images.build
-    end
   end
 
   def update
-    if @band.update_attributes(band_params)
-      proceed_registration || redirect_to(@band)
-    else
-      flash.now[:error] = @band.errors.messages.map{ |key,val| "#{key} #{val}\n" } 
-      render( current_user.current_step || params[:form_id] )
+    respond_to do |format|
+      if @band.update_attributes(band_params)
+        format.html { proceed_registration || redirect_to(@band) }
+        format.json { render json: @band.send(updated_media_type).last.to_jq_upload }
+      else
+        format.html { redirect_to current_user.current_step }
+        format.json { render json: { errors: @band.errors.full_messages, status: 422 } }
+      end
     end
+  rescue => e
+    logger.debug e
+    render json: { errors: @band.errors.full_messages, status: 422 }
   end
 
   
@@ -38,6 +38,10 @@ class BandsController < ApplicationController
   def band_params
     params.require(:band).permit(:name, :genre_id, :description, :links,
                                  { songs_attributes: [:upload], images_attributes: [:upload] } )
+  end
+
+  def updated_media_type
+    band_params[:songs_attributes].present? ? :songs : :images
   end
 
 end

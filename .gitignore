@@ -17,6 +17,8 @@
 
 /public/system/images
 /public/system/videos
+/public/system/songs
+/public/assets/
 
 .rvmrc
 .DS_Store

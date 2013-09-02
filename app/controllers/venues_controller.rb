@@ -22,9 +22,11 @@ class VenuesController < ApplicationController
         format.json { render json: @venue.send(updated_media_type).last.to_jq_upload }
       else
         format.html { redirect_to current_sign_up_step }
+        format.json { render json: { errors: @venue.errors.full_messages, status: 422 } }
       end
     end
-  rescue
+  rescue => e
+    logger.debug e
     render json: { errors: @venue.errors.full_messages, status: 422 }
   end
 
@@ -37,7 +39,6 @@ class VenuesController < ApplicationController
   end
 
   def updated_media_type
-    puts venue_params
     venue_params[:videos_attributes].present? ? :videos : :images
   end
 

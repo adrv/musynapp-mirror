@@ -1,4 +1,4 @@
 %h2 Upload an image
-= render partial: 'shared/media_uploader', locals: { media_type: 'images' }
+= render partial: 'shared/media_uploader', locals: { media_type: 'images', object: @venue }
 %h2 Upload a video
-= render partial: 'shared/media_uploader', locals: { media_type: 'videos' }
+= render partial: 'shared/media_uploader', locals: { media_type: 'videos', object: @venue }

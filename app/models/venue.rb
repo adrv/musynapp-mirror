@@ -1,4 +1,5 @@
 class Venue < ActiveRecord::Base
+
   has_one :registration, as: :registrateable
   has_many :videos
   has_many :images, as: :imageable

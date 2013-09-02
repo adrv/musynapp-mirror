@@ -1,11 +1,11 @@
-= form_tag(@venue, id: "fileupload-#{media_type}") do 
+= form_tag(object, id: "fileupload-#{media_type}") do 
   .row.fileupload-buttonbar
     .span7
       %span.btn.btn-success.fileinput-button
         %i.icon-plus.icon-white
         %span 
           Add files...
-          = file_field_tag "venue[#{media_type}_attributes][][upload]", multiple: true
+          = file_field_tag "#{object.class.to_s.downcase}[#{media_type}_attributes][][upload]", multiple: true
       %button.btn.btn-warning.cancel{:type => "reset"}
         %i.icon-ban-circle.icon-white
         %span Cancel upload
@@ -19,6 +19,6 @@
         %td Type
         %td Preview
         %td -
-    - @venue.send(media_type).each do |media_item|
+    - object.send(media_type).each do |media_item|
       = render 'shared/uploader_item', item: media_item.to_jq_upload
 

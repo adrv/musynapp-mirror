@@ -14,6 +14,9 @@ module Musynapp
       g.view_specs false
       g.fixture_replacement :machinist
     end
+
+    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

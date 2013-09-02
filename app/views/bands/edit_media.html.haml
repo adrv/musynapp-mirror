@@ -1,6 +1,4 @@
-= simple_form_for @band do |f|
-  = f.simple_fields_for :songs do |song|
-    = song.input :upload, as: :file, label: 'Upload a song'
-  = f.simple_fields_for :images do |image|
-    = image.input :upload, as: :file, label: 'Upload an image'
-  = f.button :submit
+%h2 Upload an image
+= render partial: 'shared/media_uploader', locals: { media_type: 'images', object: @band }
+%h2 Upload a song
+= render partial: 'shared/media_uploader', locals: { media_type: 'songs', object: @band }

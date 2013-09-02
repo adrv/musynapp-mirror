@@ -8,7 +8,7 @@ $ ->
         console.log rsp
         $(@).closest('tr').fadeOut()
 
-  $("#fileupload-images, #fileupload-videos").fileupload
+  $("#fileupload-images, #fileupload-videos, #fileupload-songs").fileupload
     dataType: 'json'
     type: 'PUT'
     done: (e, data) ->
