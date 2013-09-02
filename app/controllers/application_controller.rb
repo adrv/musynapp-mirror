@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
     type.camelize.constantize.create
   end
 
-
   def proceed_registration
     if current_user.pending?
       controller = current_user.registrateable_type.downcase.pluralize
@@ -39,4 +38,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def proceed_registration_or_redirect_to path
+    proceed_registration || redirect_to(@band)
+  end
 end

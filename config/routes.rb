@@ -6,10 +6,8 @@ Musynapp::Application.routes.draw do
     collection { post   'login' }
     collection { delete 'logout' }
   end
-  
-  resources :images, only: :destroy
-  resources :videos, only: :destroy
-  resources :songs, only: :destroy
+
+  resources :uploads, only: [:create, :destroy]
 
   resources :fans, only: [:edit, :update, :show]
 

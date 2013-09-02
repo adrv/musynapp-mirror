@@ -1,11 +1,13 @@
-= form_tag(object, id: "fileupload-#{media_type}") do 
+= form_tag(uploads_path, id: "fileupload-#{media_type}") do
+  = hidden_field_tag :parent_type, object.class.to_s.downcase
+  = hidden_field_tag :parent_id, object.id
   .row.fileupload-buttonbar
     .span7
       %span.btn.btn-success.fileinput-button
         %i.icon-plus.icon-white
         %span 
           Add files...
-          = file_field_tag "#{object.class.to_s.downcase}[#{media_type}_attributes][][upload]", multiple: true
+          = file_field_tag "#{media_type.singularize}[upload]", multiple: true
       %button.btn.btn-warning.cancel{:type => "reset"}
         %i.icon-ban-circle.icon-white
         %span Cancel upload

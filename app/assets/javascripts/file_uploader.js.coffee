@@ -1,6 +1,6 @@
 $ ->
 
-  $(".delete-uploaded-item").click ->
+  $('body').on 'click', '.delete-uploaded-item', ->
     $.ajax
       url: $(@).attr('delete_href')
       type: 'DELETE'
@@ -10,7 +10,7 @@ $ ->
 
   $("#fileupload-images, #fileupload-videos, #fileupload-songs").fileupload
     dataType: 'json'
-    type: 'PUT'
+    type: 'POST'
     done: (e, data) ->
       $form = $(@)
       form_id = $form.attr('id')
@@ -21,5 +21,5 @@ $ ->
         $("##{form_id}-tmpl").append JST['shared/uploader_item'](item: data.result)
         
     add: (_, data)->
-      # console.log data
+      console.log 'here'
       data.submit()
