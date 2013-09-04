@@ -1,16 +1,23 @@
 %tr
-  %td =@item.name
-  %td =@item.content_type
+  %td{ style: 'vertical-align: middle;' } =@item.name
   %td
     - if @item.content_type.match /image/ 
-      %img{ src: "#{@item.url}" }
+      %a{ href: "#{@item.download_url}" }
+        %img{ src: "#{@item.url}" }
     - else if @item.content_type.match /video/
-      %video{ controls: 'true' }
+      %video{ controls: 'true', width: '320', height: '340' }
         %source{ src: "#{@item.url}", type: "#{@item.content_type}" }
     - else if @item.content_type.match /audio/
       %audio{ controls: 'true' }
         %source{ src: "#{@item.url}", type: "#{@item.content_type}" }
-  %td
+    - else if @item.content_type.match /pdf/
+      %a{ href: "#{@item.download_url}" }
+        %img{ src: "#{@item.url}" }
+  %td{ style: 'vertical-align: middle;' }
     %button.btn.btn-danger.delete-uploaded-item{type: "button", 'data-method' => "delete", delete_href: "#{@item.delete_url}"}
       %i.icon-trash.icon-white
       %span Delete
+    %div{ style: 'margin-top:10px;' }
+      %a.btn.btn-success{href: "#{@item.download_url}"}
+        %i.icon-white.icon-download
+          Download

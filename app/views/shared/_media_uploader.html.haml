@@ -7,7 +7,7 @@
         %i.icon-plus.icon-white
         %span 
           Add files...
-          = file_field_tag "#{media_type.singularize}[upload]", multiple: true
+          = file_field_tag "#{media_type}[upload]", multiple: true
       %button.btn.btn-warning.cancel{:type => "reset"}
         %i.icon-ban-circle.icon-white
         %span Cancel upload
@@ -15,12 +15,6 @@
       .progress.progress-success.progress-striped.active.fade
         .bar{:style => "width:0%;"}
   %table.table{ id: "fileupload-#{media_type}-tmpl" }
-    %thead
-      %tr
-        %td Name
-        %td Type
-        %td Preview
-        %td -
-    - object.send(media_type).each do |media_item|
+    - [object.send(media_type)].flatten.compact.each do |media_item|
       = render 'shared/uploader_item', item: media_item.to_jq_upload
 

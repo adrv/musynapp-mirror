@@ -8,7 +8,7 @@ $ ->
         console.log rsp
         $(@).closest('tr').fadeOut()
 
-  $("#fileupload-images, #fileupload-videos, #fileupload-songs").fileupload
+  $("#fileupload-images, #fileupload-videos, #fileupload-songs, #fileupload-menu").fileupload
     dataType: 'json'
     type: 'POST'
     done: (e, data) ->

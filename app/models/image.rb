@@ -13,7 +13,8 @@ class Image < ActiveRecord::Base
       "size" => read_attribute(:upload_file_size),
       "url" => upload.url(:thumb),
       "content_type" => upload_content_type, 
-      "delete_url" => upload_path(:id => id, type: 'image')
+      "delete_url" => upload_path(:id => id, type: 'image'),
+      "download_url" => upload.url
     }
   end
 

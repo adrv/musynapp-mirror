@@ -7,7 +7,10 @@ Musynapp::Application.routes.draw do
     collection { delete 'logout' }
   end
 
-  resources :uploads, only: [:create, :destroy]
+  resources :uploads, only: [:create, :destroy] do 
+    member { get 'download' }
+  end
+
 
   resources :fans, only: [:edit, :update, :show]
 
