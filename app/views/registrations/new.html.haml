@@ -5,7 +5,7 @@
   = f.input :password_confirmation, label: false
   = f.input :dob, label: 'Date of birth', as: :date, start_year: (Date.today.year - 90), end_year: (Date.today.year - 12), discard_day: true, order: [:month, :year], include_blank: true
   = f.simple_fields_for :secret_question_answers do |answer|
-    = answer.association :secret_question, label_method: :body
+    = answer.association :secret_question, label_method: :body, include_blank: '<select>'
     = answer.input :body, label: 'Answer'
   = f.input :registrateable_type, collection: %w(Fan Venue Band), selected: 1, label: 'I am a'
   = f.button :submit, value: 'Next step'

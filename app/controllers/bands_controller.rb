@@ -29,7 +29,7 @@ class BandsController < ApplicationController
   private
 
   def band_params
-    params.require(:band).permit(:name, :genre_id, :description, :links,
+    params.permit(:band).permit(:name, :genre_id, :description, :links,
                                  { songs_attributes: [:upload], images_attributes: [:upload] } )
   end
 

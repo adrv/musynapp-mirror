@@ -13,7 +13,8 @@ class Song < ActiveRecord::Base
       "size" => read_attribute(:upload_file_size),
       "url" => upload.url,
       "content_type" => upload_content_type, 
-      "delete_url" => upload_path(:id => id, type: 'song')
+      "delete_url" => upload_path(:id => id, type: 'song'),
+      "download_url" => download_upload_path(:id => id, type: 'song')
     }
   end
 

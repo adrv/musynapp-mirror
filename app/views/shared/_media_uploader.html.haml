@@ -8,9 +8,6 @@
         %span 
           Add files...
           = file_field_tag "#{media_type}[upload]", multiple: true
-      %button.btn.btn-warning.cancel{:type => "reset"}
-        %i.icon-ban-circle.icon-white
-        %span Cancel upload
     .span5
       .progress.progress-success.progress-striped.active.fade
         .bar{:style => "width:0%;"}
