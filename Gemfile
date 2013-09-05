@@ -8,7 +8,6 @@ gem 'rmagick'
 gem 'cancan'
 gem 'machinist'
 
-
 gem 'haml-rails'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.0'
@@ -33,6 +32,7 @@ group :test do
   gem 'launchy'
   gem 'machinist'
   gem 'database_cleaner'
+  gem 'faker'
 end
 
 group :production do

@@ -29,8 +29,8 @@ class RegistrationsController < ApplicationController
       flash[:notice] = "Successfully logged in..."
       redirect_to root_url, :notice => "Logged in!"
     else
-      flash.now.alert = "Invalid email or password"
-      render "new"
+      flash.alert = "Invalid email or password"
+      redirect_to :root
     end
   end
 
