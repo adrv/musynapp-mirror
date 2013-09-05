@@ -1,6 +1,3 @@
-require 'database_cleaner'
-DatabaseCleaner.strategy = :deletion
-
 namespace :objects do
   
   task populate: [:environment, :clean ,:load_blueprints, :populate_questions, :populate_users] 
