@@ -1,0 +1,23 @@
+.navbar.navbar-fluid-top
+  .navbar-inner
+    .container-fluid
+      .pull-left
+        = link_to 'Musynapp', root_path, class: 'brand'
+      .pull-right
+        - if current_user  
+          %ul.nav.nav-list
+            %li.nav-header
+              %i.pull-left
+                = current_user.username
+          = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
+        - else
+          %div{ style: 'margin-top:15px;'}
+          = form_tag login_registrations_path do
+            = text_field_tag 'username', '', placeholder: 'Username'
+            %br
+            = text_field_tag 'password', '', placeholder: 'Password', type: 'password'
+            = submit_tag '', class: 'invisible'
+            %br
+            = link_to 'Sign Up', new_registration_path
+            %br
+            = link_to 'Forgot Password?', '#'

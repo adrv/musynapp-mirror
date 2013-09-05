@@ -1,4 +1,6 @@
 = form_tag(uploads_path, id: "fileupload-#{media_type}") do
+  .progress{ style: 'display: none;'}
+    .bar
   = hidden_field_tag :parent_type, object.class.to_s.downcase
   = hidden_field_tag :parent_id, object.id
   .row.fileupload-buttonbar
@@ -14,4 +16,3 @@
   %table.table{ id: "fileupload-#{media_type}-tmpl" }
     - [object.send(media_type)].flatten.compact.each do |media_item|
       = render 'shared/uploader_item', item: media_item.to_jq_upload
-
