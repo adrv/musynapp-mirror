@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904110954) do
+ActiveRecord::Schema.define(version: 20130906072248) do
 
   create_table "bands", force: true do |t|
     t.string   "name"
@@ -96,6 +96,19 @@ ActiveRecord::Schema.define(version: 20130904110954) do
 
   create_table "secret_questions", force: true do |t|
     t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shows", force: true do |t|
+    t.integer  "venue_id"
+    t.integer  "band_id"
+    t.datetime "dt"
+    t.integer  "crowd_size"
+    t.text     "address"
+    t.decimal  "cost",        precision: 8, scale: 2
+    t.text     "description"
+    t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

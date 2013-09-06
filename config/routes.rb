@@ -1,5 +1,6 @@
 Musynapp::Application.routes.draw do
 
+  resources :shows
   resources :venues, only: [:edit, :edit_media, :add_show]
   
   resources :registrations, only: [:new, :create] do

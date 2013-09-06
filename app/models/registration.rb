@@ -16,6 +16,10 @@ class Registration < ActiveRecord::Base
 
   before_create :set_initial_step
 
+  def is? role
+    registrateable_type == role
+  end
+
   def advance_registration
     self.current_step = next_step
     self.save

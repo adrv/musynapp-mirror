@@ -1,0 +1,32 @@
+.row-fluid
+  .span3
+    = image_tag @show.band.images.first.upload.url
+    %table.table
+      %thead
+        %tr
+          %td 
+            %b Playable sample songs
+      - @show.band.songs.each do |song|
+        %tr
+          %td
+            = song.upload_file_name
+  .span9
+    .row-fluid
+      .span7
+        %h2 
+          = @show.band.name
+        %div
+          - if @show.private?
+            %button.btn Request address
+          - else
+            = @show.address
+        %div
+          Cost:
+          = "#{@show.cost}$$"
+        %div
+          Crowd size:
+          = "#{@show.crowd_size}+"
+        %button.btn Buy tickets
+        = @show.description
+      .span5
+        Upcoming shows info goes here

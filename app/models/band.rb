@@ -2,6 +2,7 @@ class Band < ActiveRecord::Base
   has_one :registration, as: :registrateable
   has_many :songs
   has_many :images, as: :imageable
+  has_many :shows
   has_and_belongs_to_many :fans
   belongs_to :genre
   
