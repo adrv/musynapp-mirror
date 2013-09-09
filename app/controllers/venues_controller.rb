@@ -1,7 +1,6 @@
 class VenuesController < ApplicationController
 
-  load_resource edit: [:edit_media, :add_show]
-  authorize_resource except: :show
+  load_and_authorize_resource edit: [:edit_media, :add_show]
 
   def show
     if @venue.registration.pending? and (@venue.registration.id == current_user.id)
@@ -26,6 +25,13 @@ class VenuesController < ApplicationController
     else
       redirect_to current_sign_up_step
     end
+  end
+
+  def index
+  end
+
+  def find
+    render json: Venue.to_autocomplete(params[:query])
   end
 
 

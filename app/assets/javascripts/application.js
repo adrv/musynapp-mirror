@@ -15,4 +15,5 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require twitter/bootstrap
+//= require twitter/typeahead                                                                                                                                                                                                                             
 //= require_tree .

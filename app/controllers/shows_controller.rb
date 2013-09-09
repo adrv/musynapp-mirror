@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   end
 
   def create
-    if @show.save
+    if @show = Show.create(show_params)
       flash[:notice] = 'Successfully created'
       redirect_to :root
     else
@@ -26,7 +26,7 @@ class ShowsController < ApplicationController
   private
 
   def show_params
-    params.require(:show).permit(:id, :datetime, :venue, :band, :crowd_size, :cost, :description, :address)
+    params.require(:show).permit(:id, :datetime, :venue, :band, :venue_id, :band_id, :crowd_size, :cost, :description, :address, :private)
   end
 
 end

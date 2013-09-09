@@ -1,13 +1,16 @@
 = simple_form_for Show.new do |f|
   = f.input :dt
   - if current_user.is? 'Venue'
-    = f.hidden_field :venuie_id, value: current_user.registrateable_id
-    = f.association :band
+    = f.hidden_field :venue_id, value: current_user.registrateable_id
+    = label_tag 'Band'
+    = text_field_tag 'show[band]', '', class: 'find_band'
   - else
     = f.hidden_field :band_id, value: current_user.registrateable_id
-    = f.association :venue
+    = label_tag 'Venue'
+    = text_field_tag 'show[venue]', '', class: 'find_venue'
   = f.input :cost
   = f.input :description
   = f.input :address
+  = f.input :private, label: 'Make address private?'
   = f.input :crowd_size
   = f.submit

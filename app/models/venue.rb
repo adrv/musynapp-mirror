@@ -1,4 +1,9 @@
 class Venue < ActiveRecord::Base
+
+  class << self
+    include Autocomplete
+  end
+
   has_one :registration, as: :registrateable
   has_one :menu
   has_many :videos

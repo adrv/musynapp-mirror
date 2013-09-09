@@ -1,4 +1,9 @@
 class Band < ActiveRecord::Base
+
+  class << self
+    include Autocomplete
+  end
+  
   has_one :registration, as: :registrateable
   has_many :songs
   has_many :images, as: :imageable

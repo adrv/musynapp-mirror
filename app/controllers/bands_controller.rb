@@ -25,6 +25,10 @@ class BandsController < ApplicationController
     end
   end
 
+  def find
+    render json: Band.to_autocomplete(params[:query])
+  end
+
   
   private
 

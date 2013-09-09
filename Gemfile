@@ -18,6 +18,7 @@ gem 'jquery-fileupload-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'twitter-typeahead-rails'
 gem 'simple_form'
 
 gem 'quiet_assets'

@@ -12,6 +12,10 @@ class Ability
     @user = user || Registration.new
     registrateable = @user.registrateable
 
+    can [:read], Show
+    can [:find, :read], Venue
+    can [:find, :read], Band
+
     if @user.persisted?
       can :logout, Registration
     else
@@ -35,6 +39,6 @@ class Ability
       can :manage, Show, venue_id: registrateable.id
       can :manage, Show, band_id: registrateable.id
     end
-    can :read, Show
+
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906072248) do
+ActiveRecord::Schema.define(version: 20130909161419) do
 
   create_table "bands", force: true do |t|
     t.string   "name"
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(version: 20130906072248) do
     t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "venue_name"
+    t.string   "band_name"
   end
 
   create_table "songs", force: true do |t|
