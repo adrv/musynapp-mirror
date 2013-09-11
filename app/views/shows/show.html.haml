@@ -1,32 +1,60 @@
 .row-fluid
-  .span3
-    = image_tag @show.band.images.first.upload.url
-    %table.table
-      %thead
-        %tr
-          %td 
-            %b Playable sample songs
-      - @show.band.songs.each do |song|
-        %tr
-          %td
-            = song.upload_file_name
-  .span9
+  .span4
+    - if @show.band
+      - @show.band.images.each do |img|
+        %a.thumbnail{ href: img.upload.url }
+          = image_tag img.upload.url(:thumb)
+      - if @show.band.songs.present?
+        %table.table
+          %thead
+            %tr
+              %td 
+                %b Playable sample songs
+          - @show.band.songs.each do |song|
+            %tr
+              %td
+                %div
+                  = song
+                %audio{ controls: true }
+                  %source{ src: song.upload.url, type: song.upload.content_type }
+    - else
+      .alert.warning 
+        = 'There is no information about this band in our base'
+  .span8
+    - if can?(:edit, @show)
+      = link_to 'Edit information', edit_show_path(@show), class: 'btn'
     .row-fluid
       .span7
         %h2 
-          = @show.band.name
-        %div
-          - if @show.private?
-            %button.btn Request address
+          = 'Band: '
+          - if @show.band
+            = link_to @show.band.name, @show.band
           - else
-            = @show.address
-        %div
-          Cost:
-          = "#{@show.cost}$$"
-        %div
-          Crowd size:
-          = "#{@show.crowd_size}+"
+            = @show.band_name
+        %h2
+          = 'Venue: '
+          - if @show.venue
+            = link_to @show.venue.name, @show.venue
+          - else
+            = @show.venue_name
+        %dl
+          %dt Date and time:
+          %dd 
+            = @show.dt
+          %dt Address:
+          %dd
+            - if @show.private?
+              %button.btn Request address
+            - else
+              = @show.address
+          %dt Cost:
+          %dd
+            = "#{@show.cost}$$"
+          %dt Crowd Size:
+          %dd
+            = "#{@show.crowd_size}+"
         %button.btn Buy tickets
-        = @show.description
+        %div
+          = @show.description
       .span5
         Upcoming shows info goes here

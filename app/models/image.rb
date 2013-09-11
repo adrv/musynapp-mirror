@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  has_attached_file :upload, styles: { thumb: '150x150' }
+  has_attached_file :upload, styles: { thumb: '370x280' }
   belongs_to :imageable, polymorphic: true
 
   validates_attachment_content_type :upload, content_type: %w(image/gif image/jpeg image/png)

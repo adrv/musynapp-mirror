@@ -1,2 +1,7 @@
 %h1 Band page
+- if can?(:edit, @band)
+  = link_to 'Edit media', edit_media_band_path(@band), class: 'btn'
+  %br
+  = link_to 'Edit info',  edit_band_path(@band), class: 'btn'
+  %br
 = @band

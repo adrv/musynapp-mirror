@@ -7,7 +7,7 @@ class ShowsController < ApplicationController
   def create
     if @show = Show.create(show_params)
       flash[:notice] = 'Successfully created'
-      redirect_to :root
+      redirect_to @show
     else
       flash.now[:error] = @show.errors.messages.map{ |key,val| "#{key} #{val}\n" }
       render :new 
@@ -18,6 +18,13 @@ class ShowsController < ApplicationController
   end
 
   def update
+    if @show.update_attributes(show_params)
+      flash[:notice] = 'Successfully updated'
+      redirect_to @show
+    else
+      flash.now[:error] = @show.errors.messages.map{ |key,val| "#{key} #{val}\n" }
+      render :new
+    end
   end
 
   def show
@@ -26,7 +33,7 @@ class ShowsController < ApplicationController
   private
 
   def show_params
-    params.require(:show).permit(:id, :datetime, :venue, :band, :venue_id, :band_id, :crowd_size, :cost, :description, :address, :private)
+    params.require(:show).permit(:id, :dt, :venue, :band, :venue_id, :band_id, :crowd_size, :cost, :description, :address, :private)
   end
 
 end

@@ -15,6 +15,10 @@ class Band < ActiveRecord::Base
 
   before_create :prepare_links, if: -> { self.links.present? }
 
+  def primary_song
+    songs.where('primary', true)[0]
+  end
+
   private
 
   def prepare_links

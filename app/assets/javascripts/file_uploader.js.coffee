@@ -8,6 +8,13 @@ $ ->
         console.log rsp
         $(@).closest('tr').fadeOut()
 
+  $('.primary_song').change ->
+    console.log @checked
+    $.ajax
+      type: 'POST'
+      url: "/songs/#{$(@).attr('value')}/make_primary"
+      data: { song: { primary: true } }
+
   $("#fileupload-images, #fileupload-videos, #fileupload-songs, #fileupload-menu").fileupload
     dataType: 'json'
     type: 'POST'

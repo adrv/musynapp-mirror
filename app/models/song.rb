@@ -7,8 +7,15 @@ class Song < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
 
+  def make_primary_for_band
+    band.songs.each { |s| s.update_attribute 'primary', false }
+    update_attribute 'primary', true
+  end
+
   def to_jq_upload
     {
+      "id"   => id,
+      "primary" => primary,
       "name" => read_attribute(:upload_file_name),
       "size" => read_attribute(:upload_file_size),
       "url" => upload.url,
@@ -17,6 +24,11 @@ class Song < ActiveRecord::Base
       "download_url" => download_upload_path(:id => id, type: 'song')
     }
   end
+
+  def to_s
+    upload_file_name.gsub /.\w+$/, ''
+  end
+
 
   private
 

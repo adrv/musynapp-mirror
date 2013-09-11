@@ -18,7 +18,9 @@ class Show < ActiveRecord::Base
     if venue.is_a? String
       if v_id = Venue.find_by_name(venue).try(:id)
         self.venue_id = v_id
+        self.venue_name = nil
       else
+        self.venue_id = nil
         self.venue_name = venue
       end
     end
@@ -28,7 +30,9 @@ class Show < ActiveRecord::Base
     if band.is_a? String
       if b_id = Band.find_by_name(band).try(:id)
         self.band_id = b_id
+        self.band_name = nil
       else
+        self.band_id = nil
         self.band_name = band
       end
     end
