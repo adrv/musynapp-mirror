@@ -16,7 +16,7 @@ class Band < ActiveRecord::Base
   before_create :prepare_links, if: -> { self.links.present? }
 
   def primary_song
-    songs.where('primary', true)[0]
+    songs.where('songs.primary_song = ?', true)[0]
   end
 
   def virtual?

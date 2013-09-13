@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911120652) do
+ActiveRecord::Schema.define(version: 20130913112501) do
 
   create_table "bands", force: true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20130911120652) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "links"
+    t.boolean  "virtual",     default: false
   end
 
   create_table "bands_fans", force: true do |t|
@@ -121,7 +122,7 @@ ActiveRecord::Schema.define(version: 20130911120652) do
     t.string   "upload_content_type"
     t.integer  "upload_file_size"
     t.datetime "upload_updated_at"
-    t.boolean  "primary"
+    t.boolean  "primary_song"
   end
 
   create_table "venues", force: true do |t|
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 20130911120652) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "links"
+    t.boolean  "virtual",     default: false
   end
 
   create_table "videos", force: true do |t|

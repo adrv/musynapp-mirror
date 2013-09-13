@@ -1,5 +1,6 @@
 class ShowsController < ApplicationController
   load_and_authorize_resource except: :create
+  authorize_resource :create
 
   def new
     @show = Show.new
@@ -47,7 +48,7 @@ class ShowsController < ApplicationController
   def build_opposite_association
     association = opposite_params[:type]
     name = opposite_params[:name]
-    @show.send("#{association}=", association.camelize.constantize.find_or_create_by_name(name: name))
+    @show.send("#{association}=", association.camelize.constantize.find_or_create_by_name(name: name, virtual: true))
   end
 
 end

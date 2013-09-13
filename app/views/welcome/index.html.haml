@@ -1,2 +1,30 @@
-%h4
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et turpis at eros tristique bibendum. Vestibulum tincidunt odio vel ante varius, ut fringilla magna bibendum. Donec tempus nec purus sit amet vehicula. Maecenas bibendum risus quis consectetur semper. Duis sed lacinia nibh. Morbi suscipit varius ligula et eleifend. Suspendisse commodo vitae ipsum non ultrices.
+%table.table
+  %thead
+    %tr
+      %th Date
+      %th Band
+      %th Genre
+      %th Sample song
+      %th Venue
+      %th Crowd size
+      %th Cost
+  - @upcoming_shows.each do |show|
+    %tr
+      %td
+        = show.dt
+      %td
+        = link_to show.band, show.band
+      %td
+        = show.band.genre
+      %td
+        - if show.band.primary_song
+          %audio{ controls: 'true' }
+            %source{ src: show.band.primary_song.upload.url }
+        - else
+          -
+      %td
+        = link_to show.venue, show.venue
+      %td
+        = show.crowd_size
+      %td
+        = show.cost
