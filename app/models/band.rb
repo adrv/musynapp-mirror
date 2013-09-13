@@ -19,6 +19,14 @@ class Band < ActiveRecord::Base
     songs.where('primary', true)[0]
   end
 
+  def virtual?
+    registration.nil?
+  end
+
+  def to_s
+    name
+  end
+
   private
 
   def prepare_links

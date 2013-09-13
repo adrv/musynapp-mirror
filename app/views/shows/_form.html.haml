@@ -1,13 +1,13 @@
 = simple_form_for show do |f|
   = f.input :dt, label: 'Date and time'
   - if current_user.is? 'Venue'
-    = f.hidden_field :venue_id, value: current_user.registrateable_id
     = label_tag 'Band'
-    = text_field_tag 'show[band]', (show.band_name || show.band.try(:name)), class: 'find_band'
+    %input#bands{ type: 'text', name: 'opposite[name]', value: show.band }
+    %input{type: 'hidden', name: 'opposite[type]', value: 'band'}
   - else
-    = f.hidden_field :band_id, value: current_user.registrateable_id
     = label_tag 'Venue'
-    = text_field_tag 'show[venue]', (show.band_name || show.band.try(:name)), class: 'find_venue'
+    %input#venues{ type: 'text', name: 'opposite[name]', value: show.venue }
+    %input{type: 'hidden', name: 'opposite[type]', value: 'venue'}
   = f.input :cost
   = f.input :description
   = f.input :address

@@ -27,16 +27,10 @@
       .span7
         %h2 
           = 'Band: '
-          - if @show.band
-            = link_to @show.band.name, @show.band
-          - else
-            = @show.band_name
+          = link_to_unless @show.band.virtual?, @show.band.name, @show.band
         %h2
           = 'Venue: '
-          - if @show.venue
-            = link_to @show.venue.name, @show.venue
-          - else
-            = @show.venue_name
+          = link_to_unless @show.venue.virtual?, @show.venue.name, @show.venue
         %dl
           %dt Date and time:
           %dd 

@@ -1,5 +1,5 @@
 $ ->
-  for class_name in ['find_band', 'find_venue']
-    $(".#{class_name}").typeahead 
+  for id in ['bands', 'venues']
+    $("##{id}").typeahead 
       name: Math.random(),
-      remote: "/#{class_name}/?query=%QUERY"
+      remote: "/#{id}/find/?query=%QUERY"

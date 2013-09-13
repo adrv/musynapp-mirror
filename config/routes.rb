@@ -22,12 +22,12 @@ Musynapp::Application.routes.draw do
   resources :venues, only: [:edit, :update, :show] do
     member { get 'edit_media' }
     member { get 'add_show' }
-    member { get 'find' }
+    collection { get 'find' }
   end
 
   resources :bands, only: [:edit, :update, :show] do
     member { get 'edit_media' }
-    member { get 'find' }
+    collection { get 'find' }
     resources :images, only: :destroy, shallow: true
   end
   

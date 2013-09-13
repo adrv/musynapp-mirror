@@ -111,8 +111,6 @@ ActiveRecord::Schema.define(version: 20130911120652) do
     t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "venue_name"
-    t.string   "band_name"
   end
 
   create_table "songs", force: true do |t|

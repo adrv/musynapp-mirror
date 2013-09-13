@@ -4,6 +4,7 @@ class SongsController < ApplicationController
 
   def make_primary
     @song.make_primary_for_band
+    render json: {}
   end
 
 

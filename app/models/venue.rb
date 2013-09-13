@@ -1,5 +1,5 @@
 class Venue < ActiveRecord::Base
-
+  
   class << self
     include Autocomplete
   end
@@ -12,4 +12,13 @@ class Venue < ActiveRecord::Base
   has_and_belongs_to_many :fans
   
   serialize :links
+
+  def to_s
+    name
+  end
+
+  def virtual?
+    registration.nil?
+  end
+
 end
