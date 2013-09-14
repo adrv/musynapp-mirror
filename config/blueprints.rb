@@ -25,7 +25,7 @@ Band.blueprint do
   name {  Faker::Name.name }
   description { Faker::Lorem.words(30).join }
   registration { Registration.make! registrateable: object, username: 'band' }
-  genre
+  genre { Genre.all.sample || Genre.make! }
 end
 
 Genre.blueprint do
