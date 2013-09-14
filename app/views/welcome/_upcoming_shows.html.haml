@@ -1,0 +1,30 @@
+%table.table
+  %thead
+    %tr
+      %th Time
+      %th Band
+      %th Genre
+      %th Sample song
+      %th Venue
+      %th Crowd size
+      %th Cost
+  - upcoming_shows.each do |show|
+    %tr
+      %td
+        = show.dt.strftime("%H:%M")
+      %td
+        = link_to_if !show.band.virtual, show.band, show.band
+      %td
+        = show.band.genre
+      %td
+        - if show.band.primary_song
+          %audio{ controls: 'true' }
+            %source{ src: show.band.primary_song.upload.url }
+        - else
+          -
+      %td
+        = link_to_if !show.venue.virtual, show.venue, show.venue
+      %td
+        = show.crowd_size
+      %td
+        = show.cost
