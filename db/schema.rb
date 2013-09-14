@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913112501) do
+ActiveRecord::Schema.define(version: 20130914112906) do
 
   create_table "bands", force: true do |t|
     t.string   "name"
@@ -87,6 +87,17 @@ ActiveRecord::Schema.define(version: 20130913112501) do
     t.string   "current_step"
   end
 
+  create_table "requests", force: true do |t|
+    t.integer  "requester_id"
+    t.string   "requester_type"
+    t.integer  "requested_id"
+    t.string   "requested_type"
+    t.string   "state",          default: "proposed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "show_id"
+  end
+
   create_table "secret_question_answers", force: true do |t|
     t.string   "body"
     t.integer  "secret_question_id"
@@ -107,11 +118,12 @@ ActiveRecord::Schema.define(version: 20130913112501) do
     t.datetime "dt"
     t.integer  "crowd_size"
     t.text     "address"
-    t.decimal  "cost",        precision: 8, scale: 2
+    t.decimal  "cost",           precision: 8, scale: 2
     t.text     "description"
     t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "requested_type"
   end
 
   create_table "songs", force: true do |t|

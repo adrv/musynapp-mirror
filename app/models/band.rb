@@ -10,6 +10,8 @@ class Band < ActiveRecord::Base
   has_many :shows
   has_and_belongs_to_many :fans
   belongs_to :genre
+  has_many :requests_received, as: :requested, class_name: 'Request'
+  has_many :requests_sent, as: :requester, class_name: 'Request'
   
   serialize :links
 

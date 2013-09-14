@@ -48,6 +48,7 @@ class ShowsController < ApplicationController
   def build_opposite_association
     association = opposite_params[:type]
     name = opposite_params[:name]
+    @show.requested_type = association
     @show.send("#{association}=", association.camelize.constantize.find_or_create_by_name(name: name, virtual: true))
   end
 
