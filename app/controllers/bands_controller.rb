@@ -4,11 +4,7 @@ class BandsController < ApplicationController
   authorize_resource except: :show
 
   def show
-    if @band.registration.pending? and (@band.registration.id == current_user.id)
-      redirect_to action: current_user.current_step
-    else
-      render 'show'
-    end
+    continue_registration_or_show_user @band
   end
 
   def edit
@@ -19,7 +15,7 @@ class BandsController < ApplicationController
 
   def update
     if @band.update_attributes(band_params)
-      proceed_registration_or_redirect_to @band
+      advance_registration_or_redirect_to @band
     else
       redirect_to current_user.current_step
     end

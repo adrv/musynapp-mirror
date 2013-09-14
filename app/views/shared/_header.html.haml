@@ -8,7 +8,7 @@
           %ul.nav.nav-list
             %li.nav-header
               %i.pull-left
-                = current_user.username
+                = link_to current_user.username, polymorphic_url(current_user.registrateable)
           = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
         - else
           %div{ style: 'margin-top:15px;'}

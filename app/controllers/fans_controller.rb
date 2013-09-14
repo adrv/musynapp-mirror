@@ -4,11 +4,7 @@ class FansController < ApplicationController
   authorize_resource except: :show
 
   def show
-    if @fan.registration.pending? and (@fan.registration.id == current_user.id)
-      redirect_to action: current_user.current_step
-    else
-      render 'show'
-    end
+    continue_registration_or_show_user @fan
   end
 
   def edit

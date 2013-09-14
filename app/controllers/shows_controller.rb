@@ -1,6 +1,6 @@
 class ShowsController < ApplicationController
   load_and_authorize_resource except: :create
-  authorize_resource :create
+  authorize_resource only: :create
 
   def new
     @show = Show.new

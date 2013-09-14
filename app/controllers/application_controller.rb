@@ -38,7 +38,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def proceed_registration_or_redirect_to path
+  def advance_registration_or_redirect_to path
     proceed_registration || redirect_to(@band)
   end
+
+  def continue_registration_or_show_user user
+    if user.registration.pending? and (user.registration.id == current_user.id)
+      flash[:warning] = 'Please fill more information about you'
+      flash[:continued] = true
+      redirect_to action: current_user.current_step
+    else
+      render 'show'
+    end
+  end
+
 end

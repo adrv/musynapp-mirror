@@ -6,6 +6,7 @@ Musynapp::Application.routes.draw do
   resources :registrations, only: [:new, :create] do
     collection { post   'login' }
     collection { delete 'logout' }
+    member     { post   'skip' }
   end
 
   resources :uploads, only: [:create, :destroy] do 

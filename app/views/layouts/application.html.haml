@@ -23,6 +23,13 @@
     .container-fluid
       .span12
         = bootstrap_flash
+        - if flash[:continued]
+          .alert.alert-info
+            %span 
+              You can
+              = link_to 'skip this proccess', skip_registration_path(current_user), method: :post
+              if you wish
+
         = yield
     
       %footer

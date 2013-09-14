@@ -34,6 +34,10 @@ class Registration < ActiveRecord::Base
     REGISTRATION_STEPS[registrateable_type.to_sym][current_step.to_sym]
   end
 
+  def skip
+    update_attribute 'current_step', nil
+  end
+
 
   private
 

@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   
-  load_and_authorize_resource
+  load_and_authorize_resource edit: :finish
 
   def new
     build_secret_questions
@@ -19,7 +19,6 @@ class RegistrationsController < ApplicationController
   end
 
   def login_form
-
   end
 
   def login
@@ -38,6 +37,11 @@ class RegistrationsController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "Successfully logged out."
     redirect_to root_path
+  end
+
+  def skip
+    @registration.skip
+    redirect_to polymorphic_url(current_user.registrateable)
   end
   
 

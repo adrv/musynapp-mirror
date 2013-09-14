@@ -3,11 +3,7 @@ class VenuesController < ApplicationController
   load_and_authorize_resource edit: [:edit_media, :add_show]
 
   def show
-    if @venue.registration.pending? and (@venue.registration.id == current_user.id)
-      redirect_to action: current_user.current_step
-    else
-      render 'show'
-    end
+    continue_registration_or_show_user @venue
   end
 
   def edit
@@ -21,7 +17,7 @@ class VenuesController < ApplicationController
 
   def update
     if @venue.update_attributes(venue_params)
-      proceed_registration_or_redirect_to @venue
+      advance_registration_or_redirect_to @venue
     else
       redirect_to current_sign_up_step
     end

@@ -40,5 +40,7 @@ class Ability
       can :manage, Show, band_id: registrateable.id
     end
 
+    can :skip, Registration
+
   end
 end
