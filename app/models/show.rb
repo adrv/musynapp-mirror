@@ -11,6 +11,11 @@ class Show < ActiveRecord::Base
   
   after_create :send_request
 
+  def address_exposed_for? user
+    #TODO: create has_and_belons_to_many relationship
+    false
+  end
+
   def to_s
     name
   end
