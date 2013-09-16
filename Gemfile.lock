@@ -160,6 +160,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.8)
+    state_machine (1.2.0)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -216,6 +217,7 @@ DEPENDENCIES
   sdoc
   simple_form
   sqlite3
+  state_machine
   therubyracer
   twitter-bootstrap-rails
   twitter-typeahead-rails

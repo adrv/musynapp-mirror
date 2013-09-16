@@ -1,5 +1,10 @@
 Musynapp::Application.routes.draw do
 
+  resources :requests, only: :index do
+    member { post :accept }
+    member { post :reject }
+  end
+
   resources :shows
   resources :venues, only: [:edit, :edit_media, :add_show, :index]
 

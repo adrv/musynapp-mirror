@@ -1,2 +1,8 @@
 %h1 Venue page
+- if can?(:edit, @venue)
+  = link_to 'Edit media', edit_media_band_path(@venue), class: 'btn'
+  %br
+  = link_to 'Edit info',  edit_band_path(@venue), class: 'btn'
+  %br
+  = link_to 'Requests box', requests_path, class: 'btn'
 = @venue

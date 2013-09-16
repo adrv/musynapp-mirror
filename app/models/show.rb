@@ -1,6 +1,7 @@
 class Show < ActiveRecord::Base
   
   has_one :request
+  delegate :requester, :requested, :approved?, to: :request
   belongs_to :band
   belongs_to :venue
   
@@ -25,7 +26,7 @@ class Show < ActiveRecord::Base
     result
   end
 
-
+  
   private
 
   def send_request

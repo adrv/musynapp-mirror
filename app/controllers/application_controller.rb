@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def advance_registration_or_redirect_to path
-    proceed_registration || redirect_to(@band)
+    proceed_registration || redirect_to(path)
   end
 
   def continue_registration_or_show_user user

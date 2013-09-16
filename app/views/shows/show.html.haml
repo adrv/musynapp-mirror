@@ -25,19 +25,19 @@
       = link_to 'Edit information', edit_show_path(@show), class: 'btn'
     .row-fluid
       .span7
-        %h2 
-          = 'Band: '
-          = link_to_unless @show.band.virtual?, @show.band.name, @show.band
         %h2
-          = 'Venue: '
-          = link_to_unless @show.venue.virtual?, @show.venue.name, @show.venue
+          = @show.requester.class
+          = link_to @show.requester.name, @show.requester
+        %h2
+          = @show.requested.class
+          = link_to_if (!@show.requested.virtual? and @show.approved), @show.requested.name, @show.requested
         %dl
           %dt Date and time:
           %dd 
             = @show.dt
           %dt Address:
           %dd
-            - if @show.private?
+            - if @show.private? and !@show.address_exposed_for?(current_user)
               %button.btn Request address
             - else
               = @show.address

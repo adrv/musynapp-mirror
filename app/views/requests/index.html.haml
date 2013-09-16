@@ -1,0 +1,38 @@
+.row-fluid
+  .span9
+    - if @requests_proposed.present?
+      %h2 Requests received
+      %table.table
+        - @requests_proposed.each do |req|
+          %thead
+            %tr
+              %th Avatar
+              %th Link
+              %th -
+              %th -
+              %th Select
+          %tr
+            %td
+              - if req.requester.images.present?
+                = image_tag req.requester.images.first.upload.url(:thumb)
+              - else
+                -
+            %td
+              = link_to req.requester.name, req.requester
+            %td
+              = link_to 'accept', accept_request_path(req), method: :post, class: 'btn btn-success'
+            %td
+              = link_to 'reject', reject_request_path(req), method: :post, class: 'btn btn-danger'
+            %td
+              = check_box 'request_ids[id]', req.id
+
+    - if @requests_sent.present?
+      %h2 Requests sent
+      - @requests_sent.each do |req|
+        Sent to:
+        = link_to req.requester.name, req.requested
+        Status:
+        = req.state
+
+    %br
+    = link_to 'Archived requests', '#'
