@@ -18,4 +18,18 @@ class RequestsController < ApplicationController
     flash[:info] = 'You accepted request'
     redirect_to requests_path
   end
+
+  def manage_selection
+    @requests = Request.find(request_params[:request_ids])
+    commit = params[:commit]
+    if commit.in? %w(accept reject)
+      @requests.each { |req| req.send(commit) }
+      flash[:info] = "Successfully #{commit}ed" 
+    end
+    redirect_to requests_path
+  end
+
+  def request_params
+    params.permit(request_ids: [])
+  end
 end

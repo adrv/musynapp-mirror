@@ -38,7 +38,7 @@ class Ability
       can [:new, :create], Show, id: @user.id
       can :manage, Show, venue_id: registrateable.id
       can :manage, Show, band_id: registrateable.id
-      can [:index, :accept, :reject], Request do |req_obj|
+      can [:index, :accept, :reject, :manage_selection], Request do |req_obj|
         (req_obj.requester == registrateable) || (req_obj.requested == registrateable)
       end
     end

@@ -3,6 +3,7 @@ Musynapp::Application.routes.draw do
   resources :requests, only: :index do
     member { post :accept }
     member { post :reject }
+    collection { post :manage_selection }
   end
 
   resources :shows

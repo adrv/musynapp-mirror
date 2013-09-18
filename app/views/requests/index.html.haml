@@ -2,37 +2,57 @@
   .span9
     - if @requests_proposed.present?
       %h2 Requests received
-      %table.table
-        - @requests_proposed.each do |req|
-          %thead
+      = form_tag manage_selection_requests_path do
+        #selection_actions.invisible
+          %h4 Selection actions
+          = submit_tag 'reject', class: 'btn btn-danger'
+          = submit_tag 'accept', class: 'btn btn-success'
+        %table.table
+          %a#select_all{href: 'javascript:nil;'}
+            Select all
+          - @requests_proposed.each do |req|
+            %thead
+              %tr
+                %th Show
+                %th Avatar
+                %th Link
+                %th -
+                %th -
+                %th
+                  Select
             %tr
-              %th Avatar
-              %th Link
-              %th -
-              %th -
-              %th Select
-          %tr
-            %td
-              - if req.requester.images.present?
-                = image_tag req.requester.images.first.upload.url(:thumb)
-              - else
-                -
-            %td
-              = link_to req.requester.name, req.requester
-            %td
-              = link_to 'accept', accept_request_path(req), method: :post, class: 'btn btn-success'
-            %td
-              = link_to 'reject', reject_request_path(req), method: :post, class: 'btn btn-danger'
-            %td
-              = check_box 'request_ids[id]', req.id
+              %td
+                = link_to 'Link to show', req.show
+              %td
+                - if req.requester.images.present?
+                  = image_tag req.requester.images.first.upload.url(:thumb)
+                - else
+                  -
+              %td
+                = link_to req.requester.name, req.requester
+              %td
+                = link_to 'accept', accept_request_path(req), method: :post, class: 'btn btn-success'
+              %td
+                = link_to 'reject', reject_request_path(req), method: :post, class: 'btn btn-danger'
+              %td
+                = check_box_tag 'request_ids[]', req.id, false, class: 'requests_selection'
 
     - if @requests_sent.present?
       %h2 Requests sent
-      - @requests_sent.each do |req|
-        Sent to:
-        = link_to req.requester.name, req.requested
-        Status:
-        = req.state
+      %table
+        %thead
+          %tr
+            %th Link to show
+            %th Sent to
+            %th Status
+        - @requests_sent.each do |req|
+          %tr
+            %td
+              = link_to 'Link to show', req.show
+            %td
+              = link_to req.requester.name, req.requested
+            %td
+              = req.state
 
     %br
     = link_to 'Archived requests', '#'
