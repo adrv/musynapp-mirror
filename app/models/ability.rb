@@ -18,6 +18,12 @@ class Ability
 
     if @user.persisted?
       can :logout, Registration
+      can :request_address, Show do |show|
+        show.private and !show.address_exposed_for?(@user) and !show.band.virtual
+      end
+      can :show_address, Show do |show|
+        !show.private or show.address_exposed_for?(@user)
+      end
     else
       can [:login_form, :login, :new, :create], Registration
     end

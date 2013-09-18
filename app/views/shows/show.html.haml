@@ -37,10 +37,12 @@
             = @show.dt
           %dt Address:
           %dd
-            - if @show.private? and !@show.address_exposed_for?(current_user)
-              %button.btn Request address
-            - else
+            - if can?(:request_address, @show)
+              = link_to 'Request address', request_address_show_path(@show), method: :post, class: 'btn'
+            - elsif can?(:show_address, @show)
               = @show.address
+            - else
+              = 'Login to be able to request address'
           %dt Cost:
           %dd
             = "#{@show.cost}$$"

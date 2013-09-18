@@ -1,6 +1,6 @@
 class BandsController < ApplicationController
 
-  load_resource edit: :edit_media
+  load_resource edit: [:edit_media, :request_address]
   authorize_resource except: :show
 
   def show
@@ -23,6 +23,12 @@ class BandsController < ApplicationController
 
   def find
     render json: Band.to_autocomplete(params[:query])
+  end
+
+  def request_address
+    @band.send_address_request_for current_user.registrateable
+    flash[:info] = 'Your request is sent'
+    redirect_to :back
   end
 
   

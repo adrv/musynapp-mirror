@@ -2,11 +2,14 @@ class Request < ActiveRecord::Base
   belongs_to :requester, polymorphic: true
   belongs_to :requested, polymorphic: true
   belongs_to :show
+  belongs_to :show_address, class_name: 'Show'
 
   state_machine :state, initial: :proposed do
 
     after_transition on: :accept do |request|
-      request.show.update_attribute 'approved', true
+      if request.show
+        request.show.update_attribute 'approved', true
+      end
     end
 
     event :accept do

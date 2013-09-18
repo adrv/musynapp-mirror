@@ -35,6 +35,12 @@ class ShowsController < ApplicationController
   def show
   end
 
+  def request_address
+    @show.send_address_request_for current_user.registrateable
+    flash[:info] = 'Your request is sent'
+    redirect_to :back
+  end
+
   private
 
   def show_params

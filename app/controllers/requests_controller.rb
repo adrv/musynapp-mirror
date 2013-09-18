@@ -9,13 +9,13 @@ class RequestsController < ApplicationController
 
   def accept
     @request.accept
-    flash[:info] = 'You rejected request'
+    flash[:info] = 'You accepted request'
     redirect_to requests_path
   end
 
   def reject
     @request.reject
-    flash[:info] = 'You accepted request'
+    flash[:info] = 'You rejected request'
     redirect_to requests_path
   end
 

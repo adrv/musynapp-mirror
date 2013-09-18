@@ -6,7 +6,10 @@ Musynapp::Application.routes.draw do
     collection { post :manage_selection }
   end
 
-  resources :shows
+  resources :shows do
+    member { post 'request_address' }
+  end
+  
   resources :venues, only: [:edit, :edit_media, :add_show, :index]
 
   resources :registrations, only: [:new, :create] do
