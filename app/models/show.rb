@@ -14,6 +14,7 @@ class Show < ActiveRecord::Base
 
   def address_exposed_for? user
     return if user.nil?
+    return true if user.registrateable_type != 'Fan'
     address_requests.
      with_state('accepted').
       where('requester_id = ? AND requester_type = ?', user.registrateable.id, user.registrateable.class.to_s).

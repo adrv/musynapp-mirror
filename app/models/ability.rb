@@ -11,6 +11,7 @@ class Ability
   def initialize(user)
     @user = user || Registration.new
     registrateable = @user.registrateable
+    alias_action :create, :read, :update, :destroy, :to => :crud
 
     can [:read], Show
     can [:find, :read], Venue
@@ -19,10 +20,13 @@ class Ability
     if @user.persisted?
       can :logout, Registration
       can :request_address, Show do |show|
-        show.private and !show.address_exposed_for?(@user) and !show.band.virtual
+          show.private &&
+         !show.address_exposed_for?(@user) &&
+         !show.band.virtual
       end
       can :show_address, Show do |show|
-        !show.private or show.address_exposed_for?(@user)
+        !show.private ||
+         show.address_exposed_for?(@user)
       end
     else
       can [:login_form, :login, :new, :create], Registration
@@ -42,8 +46,8 @@ class Ability
 
     if @user.is?('Venue') || @user.is?('Band')
       can [:new, :create], Show, id: @user.id
-      can :manage, Show, venue_id: registrateable.id
-      can :manage, Show, band_id: registrateable.id
+      can :crud, Show, venue_id: registrateable.id
+      can :crud, Show, band_id: registrateable.id
       can [:index, :accept, :reject, :manage_selection], Request do |req_obj|
         (req_obj.requester == registrateable) || (req_obj.requested == registrateable)
       end
