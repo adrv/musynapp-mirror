@@ -28,6 +28,10 @@ class Ability
         !show.private ||
          show.address_exposed_for?(@user)
       end
+      can :send_message, Registration do |another_user|
+        another_user != @user and 
+        [another_user, @user].all? { |u| u.registrateable_type != 'Fan' }
+      end
     else
       can [:login_form, :login, :new, :create], Registration
     end

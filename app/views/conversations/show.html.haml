@@ -1,0 +1,23 @@
+= link_to "<- Back to conversations", conversations_path
+
+%table.table
+  %thead
+    %tr
+      %th
+        Sender
+      %th
+        Body
+      %th
+        Time
+  %tbody
+    - @conversation.messages.each do |msg|
+      %tr
+        %td 
+          = link_to msg.sender.name, polymorphic_path(msg.sender)
+        %td 
+          = msg.body
+        %td 
+          = msg.created_at
+= form_tag send_message_conversation_path(@conversation) do
+  = text_field_tag 'message[body]', nil, size: 20
+  = submit_tag 'Send'

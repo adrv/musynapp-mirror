@@ -5,4 +5,9 @@
   = link_to 'Edit info',  edit_band_path(@venue), class: 'btn'
   %br
   = link_to 'Requests box', requests_path, class: 'btn'
+  %br
+  = link_to 'Message box', conversations_path, class: 'btn'
+- elsif can?(:send_message, @venue.registration)
+  %a.btn{"data-toggle" => "modal", href: "#myModal", role: "button"} Send a message
+  = render partial: 'shared/new_message_modal', locals: { recipient: @venue }
 = @venue

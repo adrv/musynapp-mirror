@@ -6,6 +6,10 @@ Musynapp::Application.routes.draw do
     collection { post :manage_selection }
   end
 
+  resources :conversations do 
+    member { post :send_message }
+  end
+
   resources :shows do
     member { post 'request_address' }
   end

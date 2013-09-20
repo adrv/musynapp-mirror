@@ -1,5 +1,7 @@
 class Band < ActiveRecord::Base
 
+  acts_as_messageable
+
   class << self
     include Autocomplete
   end
@@ -27,6 +29,11 @@ class Band < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  # Required for Mailboxer gem to work
+  def mailboxer_email(obj)
+    nil
   end
 
   private

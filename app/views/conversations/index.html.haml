@@ -1,0 +1,20 @@
+.row-fluid
+  .span9
+    %h2 Conversations
+    %table.table
+      %thead
+        %tr
+          %th
+            Conversation
+          %th
+            Recipient
+      - @conversations.each do |conversation|
+        - recipients = conversation.participants - [current_user.registrateable]
+        %tr
+          %td
+            = link_to conversation do
+              .well
+                = conversation.subject
+          %td
+            = link_to recipients.first.name, recipients.first
+          %td

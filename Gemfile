@@ -7,6 +7,7 @@ gem 'state_machine'
 gem 'paperclip'
 gem 'rmagick'
 gem 'cancan'
+gem 'mailboxer'
 gem 'machinist'
 gem 'faker'
 
