@@ -7,7 +7,6 @@ class Show < ActiveRecord::Base
   belongs_to :venue
 
   scope :completed, lambda { includes(:band, :venue).where('bands.virtual = ? AND venues.virtual = ?', false, false) }
-  scope :next, lambda { |count=10| order('dt DESC').limit count }
   scope :by_genre, lambda { |genre| includes(band: :genre).where('genres.title = ?', genre)}
   
   after_create :send_request
@@ -34,6 +33,17 @@ class Show < ActiveRecord::Base
       result[genre] = Show.by_genre(genre).next(per_genre)
     end
     result
+  end
+
+  def self.next count=10
+    where('dt > ?', DateTime.now).order('dt DESC').limit count
+  end    
+
+  def self.upcoming_for user
+    type = "#{user.class.to_s.downcase}_id".to_sym
+    params = {}
+    params[type] = user.id
+    self.where(params).next(10)
   end
 
   def send_address_request_for user

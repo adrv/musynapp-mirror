@@ -1,25 +1,6 @@
 .row-fluid
   .span4
-    - if @show.band
-      - @show.band.images.each do |img|
-        %a.thumbnail{ href: img.upload.url }
-          = image_tag img.upload.url(:thumb)
-      - if @show.band.songs.present?
-        %table.table
-          %thead
-            %tr
-              %td 
-                %b Playable sample songs
-          - @show.band.songs.each do |song|
-            %tr
-              %td
-                %div
-                  = song
-                %audio{ controls: true }
-                  %source{ src: song.upload.url, type: song.upload.content_type }
-    - else
-      .alert.warning 
-        = 'There is no information about this band in our base'
+    = render partial: 'shared/media_band_sidebar', locals: { band: @show.band }
   .span8
     - if can?(:edit, @show)
       = link_to 'Edit information', edit_show_path(@show), class: 'btn'

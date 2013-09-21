@@ -1,0 +1,8 @@
+%table.table
+  %thead
+    %tr
+      %th Upcoming shows
+  - shows.each do |show|
+    %tr
+      %td
+        = link_to "#{show.address} @ #{show.dt.strftime('%I:%M %p')}", show
