@@ -1,5 +1,6 @@
 namespace :objects do
 
+  require 'database_cleaner'
 
   task populate: [:environment, :clean, :prepare,
                   :populate_genres,
@@ -28,12 +29,8 @@ namespace :objects do
 
   task :clean do
     puts '--- cleaning all'
-    Registration.delete_all
-    Venue.delete_all
-    Band.delete_all
-    Fan.delete_all
-    Genre.delete_all
-    SecretQuestion.delete_all
+    DatabaseCleaner.strategy = :deletion
+    DatabaseCleaner.clean # cleanup of the test
   end
 
   task :populate_genres do
