@@ -20,8 +20,9 @@
       %dt Links:
       %dd
         %ul
-          - @band.links.split(',').each do |link|
-            %li
-              = link_to_if valid?(link), link, link
+          - if @band.links.present?
+            - @band.links.split(',').each do |link|
+              %li
+                = link_to_if valid?(link), link, link
   .span3
     = render partial: 'shared/upcoming_shows', locals: { shows: @band.shows }
