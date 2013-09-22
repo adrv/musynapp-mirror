@@ -6,6 +6,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'state_machine'
 gem 'paperclip'
 gem 'rmagick'
+gem 'database_cleaner'
 gem 'cancan'
 gem 'mailboxer'
 gem 'machinist'
@@ -35,7 +36,6 @@ group :test do
   gem 'capybara-screenshot'
   gem 'launchy'
   gem 'machinist'
-  gem 'database_cleaner'
 end
 
 group :production do
