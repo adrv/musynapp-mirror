@@ -26,7 +26,7 @@
               %td
                 - if req.requester_type != 'Fan' and req.requester.images.present?
                   = image_tag req.requester.images.first.upload.url(:thumb)
-                - else
+                - elsif req.requester_type == 'Fan'
                   = image_tag req.requester.avatar.url(:thumb)
               %td
                 = link_to (req.requester.try(:name) || req.requester_type ), req.requester

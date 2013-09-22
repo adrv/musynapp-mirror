@@ -9,7 +9,9 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    current_user.registrateable.send_message find_recipient, params[:message][:body], params[:message][:subject]
+    puts '11112121212'
+    subject = params[:message][:subject].present? ? params[:message][:subject] : '<No subject>'
+    current_user.registrateable.send_message( find_recipient, params[:message][:body], subject )
     flash[:notice] = 'Your message is sent'
     redirect_to find_recipient
   end
