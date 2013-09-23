@@ -30,12 +30,12 @@ class Show < ActiveRecord::Base
     result = {}
     genres = Genre.pluck :title
     genres.each do |genre|
-      result[genre] = Show.by_genre(genre).next(per_genre)
+      result[genre] = self.by_genre(genre).upcoming(per_genre)
     end
     result
   end
 
-  def self.next count=10
+  def self.upcoming count=10
     where('dt > ?', DateTime.now).order('dt DESC').limit count
   end    
 
@@ -43,7 +43,7 @@ class Show < ActiveRecord::Base
     type = "#{user.class.to_s.downcase}_id".to_sym
     params = {}
     params[type] = user.id
-    self.where(params).next(10)
+    self.where(params).upcoming(10)
   end
 
   def send_address_request_for user
