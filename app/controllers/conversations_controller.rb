@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    puts '11112121212'
+    # TODO: messages are not sent even if required subject is hard-coded
     subject = params[:message][:subject].present? ? params[:message][:subject] : '<No subject>'
     current_user.registrateable.send_message( find_recipient, params[:message][:body], subject )
     flash[:notice] = 'Your message is sent'

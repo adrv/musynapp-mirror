@@ -11,7 +11,8 @@
   = render partial: 'shared/new_message_modal', locals: { recipient: @band }
 .row-fluid
   .span4
-    = render partial: 'shared/media_band_sidebar', locals: { band: @band }
+    = render partial: 'shared/media_side_content', locals: { content_type: :image, media: @band.images }
+    = render partial: 'shared/media_side_content', locals: { content_type: :song, media: @band.songs }
   .span4
     %dl
       %dt Description:
@@ -25,4 +26,4 @@
               %li
                 = link_to_if valid?(link), link, link
   .span3
-    = render partial: 'shared/upcoming_shows', locals: { shows: @band.shows }
+    = render partial: 'shared/upcoming_shows', locals: { shows: Show.upcoming_for(@band) }

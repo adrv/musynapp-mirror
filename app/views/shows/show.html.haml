@@ -1,6 +1,7 @@
 .row-fluid
   .span4
-    = render partial: 'shared/media_band_sidebar', locals: { band: @show.band }
+    = render partial: 'shared/media_side_content', locals: { content_type: :image, media: @show.band.images }
+    = render partial: 'shared/media_side_content', locals: { content_type: :song, media: @show.band.songs }
   .span8
     - if can?(:edit, @show)
       = link_to 'Edit information', edit_show_path(@show), class: 'btn'

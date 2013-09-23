@@ -1,0 +1,24 @@
+- if content_type == :image
+  - media.each do |img|
+    %a.thumbnail{ href: img.upload.url }
+      = image_tag img.upload.url(:thumb)
+- if content_type == :song and media.present?
+  %table.table
+    %thead
+      %tr
+        %td 
+          %b Playable sample songs
+    - media.each do |song|
+      %tr
+        %td
+          %div
+            = song
+          %audio{ controls: true }
+            %source{ src: song.upload.url, type: song.upload.content_type }
+- if content_type == :video
+  - media.each do |video|
+    %video{ controls: 'true', width: '320', height: '340' }
+      %source{ src: "#{video.upload.url}", type: "#{video.upload.content_type}" }
+- if content_type == :menu and media
+  %a{ href: "#{media.upload.url}" }
+    %img{ src: "#{media.thumb}" }

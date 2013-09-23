@@ -8,4 +8,15 @@
 - elsif can?(:send_message, @venue.registration)
   %a.btn{"data-toggle" => "modal", href: "#myModal", role: "button"} Send a message
   = render partial: 'shared/new_message_modal', locals: { recipient: @venue }
-= @venue
+.row-fluid
+  .span4
+    = render partial: 'shared/media_side_content', locals: { content_type: :image, media: @venue.images }
+    = render partial: 'shared/media_side_content', locals: { content_type: :video, media: @venue.videos }
+    = render partial: 'shared/media_side_content', locals: { content_type: :menu, media: @venue.menu }
+  .span4
+    %dl
+      %dt Description:
+      %dd
+        = @venue.description
+  .span3
+    = render partial: 'shared/upcoming_shows', locals: { shows: Show.upcoming_for(@venue) }

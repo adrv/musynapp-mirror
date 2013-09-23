@@ -8,6 +8,7 @@
       %th Venue
       %th Crowd size
       %th Cost
+      %th
   - upcoming_shows.each do |show|
     %tr
       %td
@@ -28,3 +29,6 @@
         = show.crowd_size
       %td
         = show.cost
+      %td
+        = link_to 'More info', show
+

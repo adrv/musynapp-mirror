@@ -5,7 +5,7 @@ class Show < ActiveRecord::Base
   has_many :address_requests, class_name: 'Request', foreign_key: 'show_address_id'
   belongs_to :band
   belongs_to :venue
-
+  
   scope :completed, lambda { includes(:band, :venue).where('bands.virtual = ? AND venues.virtual = ?', false, false) }
   scope :by_genre, lambda { |genre| includes(band: :genre).where('genres.title = ?', genre)}
   
