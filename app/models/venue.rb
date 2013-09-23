@@ -1,6 +1,7 @@
 class Venue < ActiveRecord::Base
 
   acts_as_messageable
+  scoped_search :on => [:name, :address]
   
   class << self
     include Autocomplete
@@ -17,10 +18,6 @@ class Venue < ActiveRecord::Base
   
   serialize :links
 
-  def to_s
-    name
-  end
-
   def virtual?
     registration.nil?
   end
@@ -28,6 +25,10 @@ class Venue < ActiveRecord::Base
   # Required for Mailboxer gem to work
   def mailboxer_email(obj)
     nil
+  end
+
+  def to_s
+    name
   end
 
 end

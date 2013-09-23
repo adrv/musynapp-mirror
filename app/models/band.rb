@@ -1,6 +1,8 @@
 class Band < ActiveRecord::Base
 
   acts_as_messageable
+  scoped_search :on => :name
+  scoped_search in: :genre, on: :title
 
   class << self
     include Autocomplete

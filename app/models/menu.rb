@@ -21,6 +21,9 @@ class Menu < ActiveRecord::Base
     }
   end
 
+  def thumb
+    "#{upload.url.gsub(/\?.*/, '')}.png"
+  end
 
   private
 
@@ -33,8 +36,5 @@ class Menu < ActiveRecord::Base
     system "rm #{upload.path}.png"
   end
 
-  def thumb
-    "#{upload.url.gsub(/\?.*/, '')}.png"
-  end
 
 end
