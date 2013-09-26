@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def continue_registration_or_show_user user
-    if user.registration.pending? and (user.registration.id == current_user.id)
+    if user.registration.pending? and (user.registration == current_user)
       flash[:warning] = 'Please fill more information about you'
       flash[:continued] = true
       redirect_to action: current_user.current_step
