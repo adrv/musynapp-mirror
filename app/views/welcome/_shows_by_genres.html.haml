@@ -7,7 +7,7 @@
     - shows.each do |show|
       %tr
         %td
-          = show.dt.strftime("%H:%M")
+          = show.humanized_time
           = link_to show.band.name, show.band
           at
           = link_to show.venue.name, show.venue

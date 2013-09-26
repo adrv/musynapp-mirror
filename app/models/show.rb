@@ -20,8 +20,12 @@ class Show < ActiveRecord::Base
        present?
   end
 
-  def to_s
-    name
+  def name
+    "#{band.name} at #{venue.name}"
+  end
+
+  def humanized_time
+    dt.strftime("%H:%M %p")
   end
 
   # Produces output with format:

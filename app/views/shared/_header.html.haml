@@ -4,20 +4,27 @@
       .pull-left
         = link_to 'Musynapp', root_path, class: 'brand'
       .pull-right
-        - if current_user  
-          %ul.nav.nav-list
-            %li.nav-header
-              %i.pull-left
-                = link_to current_user.username, polymorphic_url(current_user.registrateable)
-          = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
-        - else
-          %div{ style: 'margin-top:15px;'}
-          = form_tag login_registrations_path do
-            = text_field_tag 'username', '', placeholder: 'Username'
-            %br
-            = text_field_tag 'password', '', placeholder: 'Password', type: 'password'
-            = submit_tag '', class: 'invisible'
-            %br
-            = link_to 'Sign Up', new_registration_path
-            %br
-            = link_to 'Forgot Password?', '#'
+        %div{ style: 'margin-top:15px;'}
+        .row-fluid
+          .span6
+            = form_tag search_searches_path, method: :get do 
+              = text_field_tag 'query', '', class: 'search-query input-medium', placeholder: 'Search'
+              = hidden_field_tag :search_type, 'simple'
+              = submit_tag '', class: 'invisible'
+          .span6
+            - if current_user  
+              %ul.nav.nav-list{style: 'display:inline;'}
+                %li.nav-header
+                  %i.pull-left
+                    = link_to current_user.username, polymorphic_url(current_user.registrateable)
+              = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
+            - else
+              = form_tag login_registrations_path do
+                = text_field_tag 'username', '', placeholder: 'Username', class: 'search-query'
+                %br
+                = text_field_tag 'password', '', placeholder: 'Password', type: 'password', class: 'search-query'
+                %br
+                = link_to 'Sign Up', new_registration_path
+                %br
+                = link_to 'Forgot Password?', '#'
+                = submit_tag '', class: 'invisible'

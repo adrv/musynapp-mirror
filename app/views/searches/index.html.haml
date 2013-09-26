@@ -1,0 +1,49 @@
+.row-fluid
+  .span3
+    .well
+      = form_tag search_searches_path, method: :get do
+        %label Band name
+        = text_field_tag 'query[band_name]', '', class: 'input-block-level' 
+        %label Genre
+        = text_field_tag 'query[genre]', '', class: 'input-block-level'
+        %label Venue name
+        = text_field_tag 'query[venue_name]', '', class: 'input-block-level'
+        %label City
+        = text_field_tag 'query[address]', '', class: 'input-block-level'
+        = submit_tag 'Search', class: 'btn btn-primary'
+  .span8
+    - if @results[:shows].present?
+      %h3 Shows
+      %table.table
+        %thead
+          %tr
+            %th Band
+            %th Time
+            %th Genre
+            %th Venue
+            %th Cost
+            %th Size
+        %tbody
+          - @results[:shows].each do |show|
+            %tr
+              %td
+                = link_to show.band.name, show.band
+              %td
+                = show.humanized_time
+              %td
+                = show.band.genre.title
+              %td
+                = link_to show.venue.name, show.venue
+              %td 
+                = show.cost
+              %td
+                = show.crowd_size
+
+    - @results.each do |entity_name, collection|
+      - next if collection.empty? or entity_name == :shows
+      %h3
+        = entity_name.camelize
+      %ul
+        - collection.each do |entity|
+          %li
+            = link_to entity.name, entity

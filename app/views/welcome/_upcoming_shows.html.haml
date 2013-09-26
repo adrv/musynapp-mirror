@@ -12,7 +12,7 @@
   - upcoming_shows.each do |show|
     %tr
       %td
-        = show.dt.strftime("%H:%M")
+        = show.humanized_time
       %td
         = link_to_if !show.band.virtual, show.band, show.band
       %td

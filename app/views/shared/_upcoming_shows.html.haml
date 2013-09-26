@@ -5,4 +5,4 @@
   - shows.each do |show|
     %tr
       %td
-        = link_to "#{show.address} @ #{show.dt.strftime('%I:%M %p')}", show
+        = link_to "#{show.address} @ #{show.humanized_time}", show

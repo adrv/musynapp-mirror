@@ -44,7 +44,10 @@ Musynapp::Application.routes.draw do
     collection { get 'find' }
     resources :images, only: :destroy, shallow: true
   end
-  
+
+  resources :searches, only: [:index] do
+    collection { get 'search' }
+  end
 
   root 'welcome#index'
 
