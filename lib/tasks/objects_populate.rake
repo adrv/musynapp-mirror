@@ -22,9 +22,14 @@ namespace :objects do
 
   task :populate_users do
     puts '--- creating users'
-    Venue.make! # venue : 123456
-    Band.make! # band : 123456
-    Fan.make! # fan :123456
+    [Venue, Band, Fan].each do |user_type|
+      username = user_type.to_s.downcase
+      p username
+      reg = Registration.make!( password: '123456',
+                                password_confirmation: '123456',
+                                username: username,
+                                registrateable: user_type.make! )
+     end
   end
 
   task :clean do

@@ -11,20 +11,20 @@ Registration.blueprint do
 end
 
 Fan.blueprint do
-  registration { Registration.make! registrateable: object, username: 'fan' }
+  registration { Registration.make! registrateable: object }
 end
 
 Venue.blueprint do
   name {  Faker::Name.name }
   address { Faker::Lorem.words(5).join }
-  description { Faker::Lorem.words(30).join }
-  registration { Registration.make! registrateable: object, username: 'venue' }
+  description { Faker::Lorem.words(30).join(' ') }
+  registration { Registration.make! registrateable: object }
 end
 
 Band.blueprint do
   name {  Faker::Name.name }
-  description { Faker::Lorem.words(30).join }
-  registration { Registration.make! registrateable: object, username: 'band' }
+  description { Faker::Lorem.words(30).join(' ') }
+  registration { Registration.make! registrateable: object }
   genre { Genre.all.sample || Genre.make! }
 end
 
