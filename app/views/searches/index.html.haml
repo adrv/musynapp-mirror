@@ -42,7 +42,7 @@
     - @results.each do |entity_name, collection|
       - next if collection.empty? or entity_name == :shows
       %h3
-        = entity_name.camelize
+        = entity_name.to_s.camelize
       %ul
         - collection.each do |entity|
           %li
