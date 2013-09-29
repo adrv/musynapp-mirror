@@ -4,9 +4,7 @@ class Band < ActiveRecord::Base
   scoped_search :on => :name
   scoped_search in: :genre, on: :title
 
-  class << self
-    include Autocomplete
-  end
+  include Autocomplete
   
   has_one :registration, as: :registrateable
   has_many :songs
@@ -20,10 +18,6 @@ class Band < ActiveRecord::Base
   serialize :links
 
   before_create :prepare_links, if: -> { self.links.present? }
-
-  def primary_song
-    songs.where('songs.primary_song = ?', true)[0]
-  end
 
   def virtual?
     registration.nil?

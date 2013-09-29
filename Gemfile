@@ -23,7 +23,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'twitter-typeahead-rails'
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                          :github => 'anjlab/bootstrap-rails',
+                          :branch => '3.0.0'
 gem 'simple_form'
+gem 'select2-rails'
 
 gem 'quiet_assets'
 gem 'haml_coffee_assets'

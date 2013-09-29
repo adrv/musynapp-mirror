@@ -1,10 +1,10 @@
 class BandsController < ApplicationController
-
+  
   load_resource edit: [:edit_media, :request_address]
   authorize_resource except: :show
 
   def show
-    continue_registration_or_show_user @band
+    continue_registration_or_redirect_to @band
   end
 
   def edit
@@ -14,11 +14,7 @@ class BandsController < ApplicationController
   end
 
   def update
-    if @band.update_attributes(band_params)
-      advance_registration_or_redirect_to @band
-    else
-      redirect_to current_user.current_step
-    end
+    update_registrateable_process @band, band_params
   end
 
   def find

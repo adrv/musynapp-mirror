@@ -31,13 +31,13 @@
               %td
                 = show.humanized_time
               %td
-                = show.band.genre.title
+                = show.band.try(:genre).try(:title)
               %td
                 = link_to show.venue.name, show.venue
               %td 
                 = show.cost
               %td
-                = show.crowd_size
+                = show.dt
 
     - @results.each do |entity_name, collection|
       - next if collection.empty? or entity_name == :shows

@@ -24,14 +24,13 @@ Musynapp::Application.routes.draw do
 
   resources :uploads, only: [:create, :destroy] do 
     member { get 'download' }
-  end
-
-  resources :songs do
     member { post 'make_primary' }
   end
 
 
-  resources :fans, only: [:edit, :update, :show]
+  resources :fans, only: [:edit, :update, :show] do
+    collection { get 'find' }
+  end
 
   resources :venues, only: [:edit, :update, :show] do
     member { get 'edit_media' }

@@ -3,9 +3,7 @@ class Venue < ActiveRecord::Base
   acts_as_messageable
   scoped_search :on => [:name, :address]
   
-  class << self
-    include Autocomplete
-  end
+  include Autocomplete
 
   has_one :registration, as: :registrateable
   has_one :menu

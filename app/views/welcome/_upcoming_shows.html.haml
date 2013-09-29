@@ -18,9 +18,9 @@
       %td
         = show.band.genre
       %td
-        - if show.band.primary_song
+        - if show.band.songs.primary
           %audio{ controls: 'true' }
-            %source{ src: show.band.primary_song.upload.url }
+            %source{ src: show.band.songs.primary.upload.url }
         - else
           -
       %td

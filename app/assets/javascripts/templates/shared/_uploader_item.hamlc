@@ -1,7 +1,12 @@
 %tr
   %td{ style: 'vertical-align: middle;' } =@item.name
   %td
-    - if @item.content_type.match /image/ 
+    - if @item.content_type.match /image/
+      - if @item.user_type == 'Band'
+        - if @item.is_primary
+          %input.primary_media{ type: 'radio', name: 'image', value: "#{@item.id}", checked: 'true', 'data-type' => 'Image', 'data-user_type' => "#{@item.user_type}", 'data-user_id' => "#{@item.user_id}" }
+        - else
+          %input.primary_media{ type: 'radio', name: 'image', value: "#{@item.id}", 'data-type' => 'Image', 'data-user_type' => "#{@item.user_type}", 'data-user_id' => "#{@item.user_id}" }
       %a{ href: "#{@item.download_url}" }
         %img{ src: "#{@item.url}" }
     - else if @item.content_type.match /video/
@@ -10,10 +15,11 @@
     - else if @item.content_type.match /audio/
       %audio{ controls: 'true' }
         %source{ src: "#{@item.url}", type: "#{@item.content_type}" }
-      - if @item.primary_song
-        %input{ type: 'radio', name: 'primary_song', value: "#{@item.id}", class: 'primary_song', checked: 'true' }
-      - else
-        %input{ type: 'radio', name: 'primary_song', value: "#{@item.id}", class: 'primary_song' }
+      - if @item.user_type == 'Band'
+        - if @item.is_primary
+          %input.primary_media{ type: 'radio', name: 'image', value: "#{@item.id}", checked: 'true', 'data-type' => 'Song', 'data-user_type' => "#{@item.user_type}", 'data-user_id' => "#{@item.user_id}" }
+        - else
+          %input.primary_media{ type: 'radio', value: "#{@item.id}", name: 'image', 'data-type' => 'Song', 'data-user_type' => "#{@item.user_type}", 'data-user_id' => "#{@item.user_id}" }
       %span Primary
     - else if @item.content_type.match /pdf/
       %a{ href: "#{@item.download_url}" }

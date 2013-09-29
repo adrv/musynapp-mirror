@@ -9,6 +9,8 @@ class Request < ActiveRecord::Base
     after_transition on: :accept do |request|
       if request.show
         request.show.update_attribute 'approved', true
+      elsif request.show_address
+        request.show_address.fans << request.requester
       end
     end
 

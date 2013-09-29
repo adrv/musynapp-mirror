@@ -1,7 +1,7 @@
 class UploadsController < ApplicationController
 
   def create
-    upload = build_upload(find_parent)
+    upload = build_upload(find_user)
     if upload.save
       render json: upload.to_jq_upload
     else
@@ -20,11 +20,16 @@ class UploadsController < ApplicationController
     send_file file.path, disposition: method
   end
 
+  def make_primary
+    find_uploadable.make_primary_for find_user
+    render json: {}
+  end
+
 
   private
 
-  def find_parent
-    @parent = uploader_params[:parent_type].camelize.constantize.find(uploader_params[:parent_id])
+  def find_user
+    @parent = uploader_params[:user_type].camelize.constantize.find(uploader_params[:user_id])
   end
 
   def find_uploadable
@@ -43,6 +48,6 @@ class UploadsController < ApplicationController
   end
 
   def uploader_params
-    params.permit(:id, :type, :parent_id, :parent_type, images: [:upload], videos: [:upload], songs: [:upload], menu: [:upload] )
+    params.permit(:id, :type, :user_id, :user_type, images: [:upload], videos: [:upload], songs: [:upload], menu: [:upload] )
   end
 end

@@ -3,6 +3,8 @@
     = render partial: 'shared/media_side_content', locals: { content_type: :image, media: @show.band.images }
     = render partial: 'shared/media_side_content', locals: { content_type: :song, media: @show.band.songs }
   .span8
+    - if @show.little_people?
+      %button.btn.btn-success Little people
     - if can?(:edit, @show)
       = link_to 'Edit information', edit_show_path(@show), class: 'btn'
     .row-fluid
@@ -35,4 +37,4 @@
         %div
           = @show.description
       .span5
-        Upcoming shows info goes here
+        Upcoming shows info

@@ -2,4 +2,4 @@
 = render partial: 'shared/media_uploader', locals: { media_type: 'images', object: @band }
 %h2 Upload a song
 = render partial: 'shared/media_uploader', locals: { media_type: 'songs', object: @band }
-= link_to 'Done', @band, method: :put, class: 'btn btn-primary'
+= link_to 'Done', @band, class: 'btn btn-primary'

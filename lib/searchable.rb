@@ -14,7 +14,7 @@ module Searchable
       type = clazz.to_s.downcase.pluralize
       objects = clazz.search_for(query).includes(:shows)
       res[type] = objects
-      shows.concat objects.map{|v| v.shows }.flatten
+      shows.concat objects.map{|v| v.shows }.flatten.sort_by{|s| s.dt }
     end
     res[:shows] = shows.uniq
     res
@@ -35,7 +35,7 @@ module Searchable
     else
       res[:bands] = []
     end
-    res[:shows] = (res[:bands]+(res[:venues])).map{|obj| obj.shows }.flatten.uniq
+    res[:shows] = (res[:bands]+(res[:venues])).map{|obj| obj.shows }.flatten.uniq.sort_by{|s| s.dt }
     res
   end
 

@@ -11,8 +11,8 @@
           = link_to show.band.name, show.band
           at
           = link_to show.venue.name, show.venue
-          - if show.band.primary_song
+          - if show.band.songs.primary
             %audio{ controls: 'true' }
-              %source{ src: show.band.primary_song.upload.url }
+              %source{ src: show.band.songs.primary.upload.url }
           - else
             -

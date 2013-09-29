@@ -11,6 +11,7 @@ Registration.blueprint do
 end
 
 Fan.blueprint do
+  name {  Faker::Name.name }
   registration { Registration.make! registrateable: object }
 end
 

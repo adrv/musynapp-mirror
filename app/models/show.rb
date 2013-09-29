@@ -5,6 +5,7 @@ class Show < ActiveRecord::Base
   has_many :address_requests, class_name: 'Request', foreign_key: 'show_address_id'
   belongs_to :band
   belongs_to :venue
+  has_and_belongs_to_many :fans
   
   scope :completed, lambda { includes(:band, :venue).where('bands.virtual = ? AND venues.virtual = ?', false, false) }
   scope :by_genre, lambda { |genre| includes(band: :genre).where('genres.title = ?', genre)}
@@ -50,8 +51,12 @@ class Show < ActiveRecord::Base
     self.where(params).upcoming(10)
   end
 
-  def send_address_request_for user
-    address_requests.create requested: band, requester: user
+  def send_address_request_for fan
+    address_requests.create requested: band, requester: fan
+  end
+
+  def little_people?
+    crowd_size? && (fans.count.to_f / crowd_size) < 0.15
   end
 
   

@@ -3,7 +3,7 @@ class VenuesController < ApplicationController
   load_and_authorize_resource edit: [:edit_media, :add_show]
 
   def show
-    continue_registration_or_show_user @venue
+    continue_registration_or_redirect_to @venue
   end
 
   def edit
@@ -16,11 +16,7 @@ class VenuesController < ApplicationController
   end
 
   def update
-    if @venue.update_attributes(venue_params)
-      advance_registration_or_redirect_to @venue
-    else
-      redirect_to current_sign_up_step
-    end
+    update_registrateable_process @venue, venue_params
   end
 
   def index
@@ -34,7 +30,7 @@ class VenuesController < ApplicationController
   private
 
   def venue_params
-    @params ||= params.permit(:venue).permit(:name, :address, :links, :description, :menu,
+    @params ||= params.require(:venue).permit(:name, :address, :links, :description, :menu,
                                   { videos_attributes: [:upload], images_attributes: [:upload] })
   end
 

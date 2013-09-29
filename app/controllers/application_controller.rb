@@ -42,13 +42,26 @@ class ApplicationController < ActionController::Base
     proceed_registration || redirect_to(path)
   end
 
-  def continue_registration_or_show_user user
+  def continue_registration_or_redirect_to user
     if user.registration.pending? and (user.registration == current_user)
       flash[:warning] = 'Please fill more information about you'
       flash[:continued] = true
       redirect_to action: current_user.current_step
     else
       render 'show'
+    end
+  end
+
+  def update_registrateable_process obj, params
+    if params.present?
+      result = obj.update_attributes(params)
+      if result
+        advance_registration_or_redirect_to obj
+      else
+        redirect_to obj.registration.current_step
+      end
+    else
+      advance_registration_or_redirect_to obj
     end
   end
 
