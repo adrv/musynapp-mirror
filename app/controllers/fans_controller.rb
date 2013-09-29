@@ -4,7 +4,7 @@ class FansController < ApplicationController
   authorize_resource except: :show
 
   def show
-    continue_registration_or_show_user @fan
+    continue_registration_or_redirect_to @fan
   end
 
   def edit
@@ -19,14 +19,17 @@ class FansController < ApplicationController
     end
   end
 
+  def find
+    render json: Fan.to_autocomplete(params[:query])
+  end
+
 
   private
 
-
   def fan_params
-     params.require(:fan).permit(:avatar, favorite_band_ids: [],
-                                  favorite_venue_ids: [],
-                                  friend_ids: [])
+     params.require(:fan).permit(:name, :avatar, favorite_bands_ids: [],
+                                  favorite_venues_ids: [],
+                                  friends_ids: [])
   end
 
 end

@@ -1,6 +1,15 @@
-= simple_form_for @fan do |f|
-  = f.input :avatar, as: :file
-  = f.association :favorite_bands
-  = f.association :favorite_venues
-  = f.association :friends, label_method: lambda { |friend| friend.registration.username }
-  = f.button :submit
+.row-fluid
+  .span8
+    = simple_form_for @fan do |f|
+      = f.input :avatar, as: :file
+      = f.input :name
+      = f.label :friends
+      = f.input_field :friends_ids, data: { delimiter: ',', placeholder: "Look up for friends", url: find_fans_path }, multiple: true, inline_label: 'Friends', class: "select2 input-block-level"
+      %br
+      = f.label :favorite_bands
+      = f.input_field :favorite_bands_ids, data: { delimiter: ',', placeholder: "Look up for your favorite bands", url: find_bands_path }, multiple: true, class: "select2 input-block-level"
+      %br
+      = f.label :favorite_venues
+      = f.input_field :favorite_venues_ids, data: { delimiter: ',', placeholder: "Look up for your favorite venues", url: find_venues_path }, multiple: true, class: "select2 input-block-level"
+      %br
+      = f.button :submit, class: 'btn btn-primary'

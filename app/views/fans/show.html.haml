@@ -1,2 +1,10 @@
-%h1 Fan show page
-= @fan
+%h1
+  = @fan.name
+= link_to 'Edit', edit_fan_path(@fan), class: 'btn'
+.row-fluid
+  .span4
+    %a.thumbnail
+      = image_tag @fan.avatar.url
+  .span7
+    - { 'Friends' => @fan.friends, 'Favorite bands' => @fan.favorite_bands, 'Favorite venues' => @fan.favorite_venues }.each do |title, collection|
+      = render partial: 'info_panel', locals: { title: title, collection: collection }

@@ -1,0 +1,8 @@
+.panel.panel-default
+  .list-expander.panel-heading 
+    %h4
+      = title
+  .panel-body
+    .list-group
+      - collection.each do |item|
+        = link_to item.name, item, class: 'list-group-item'
