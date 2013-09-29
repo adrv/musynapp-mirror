@@ -1,5 +1,5 @@
 = simple_form_for show do |f|
-  = f.input :dt, label: 'Date and time'
+  = f.input :dt, label: 'Date and time', :default => Date.tomorrow
   - if current_user.is? 'Venue'
     = label_tag 'Band'
     %input#bands{ type: 'text', name: 'opposite[name]', value: show.band }
