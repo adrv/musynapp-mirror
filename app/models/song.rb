@@ -6,16 +6,15 @@ class Song < ActiveRecord::Base
   validate :dont_exceed_limit
 
   include Rails.application.routes.url_helpers
+  include ActsAsPrimary
 
-  def make_primary_for_band
-    band.songs.each { |s| s.update_attribute 'primary_song', false }
-    update_attribute 'primary_song', true
-  end
 
   def to_jq_upload
     {
       "id"   => id,
-      "primary_song" => primary_song,
+      "is_primary" => primary?,
+      "user_type" => 'Band',
+      "user_id" => band_id,
       "name" => read_attribute(:upload_file_name),
       "size" => read_attribute(:upload_file_size),
       "url" => upload.url,

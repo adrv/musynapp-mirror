@@ -6,9 +6,15 @@ class Image < ActiveRecord::Base
   validate :dont_exceed_limit
 
   include Rails.application.routes.url_helpers
+  include ActsAsPrimary
+
 
   def to_jq_upload
     {
+      "id"   => id,
+      "is_primary" => primary?,
+      "user_type" => imageable_type,
+      "user_id" => imageable_id,
       "name" => read_attribute(:upload_file_name),
       "size" => read_attribute(:upload_file_size),
       "url" => upload.url(:thumb),
