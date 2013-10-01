@@ -4,4 +4,4 @@
 = render partial: 'shared/media_uploader', locals: { media_type: 'videos', object: @venue }
 %h2 Uplaod a menu
 = render partial: 'shared/media_uploader', locals: { media_type: 'menu', object: @venue }
-= link_to 'Done', @venue, class: 'btn btn-primary'
+= link_to 'Done', venue_path(@venue, 'venue[done]'=> true), class: 'btn btn-primary', method: 'put'
