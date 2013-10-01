@@ -19,6 +19,12 @@ class FansController < ApplicationController
     end
   end
 
+  def destroy
+    @fan.destroy
+    flash[:info] = "This account has been canceled"
+    redirect_to root_path
+  end
+
   def find
     render json: Fan.to_autocomplete(params[:query])
   end

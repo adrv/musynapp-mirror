@@ -11,11 +11,15 @@ class Ability
   def initialize(user)
     @user = user || Registration.new
     registrateable = @user.registrateable
-    alias_action :create, :read, :update, :destroy, :to => :crud
+    alias_action :create, :read, :update, :to => :cru
 
     can [:read], Show
     can [:find, :read], Venue
     can [:find, :read], Band
+
+    if @user.is? 'Admin'
+      can :manage, [Venue, Show, Band, Fan]
+    end
 
     if @user.persisted?
       can :logout, Registration
@@ -30,15 +34,16 @@ class Ability
       end
       can :send_message, Registration do |another_user|
         another_user != @user and 
-        [another_user, @user].all? { |u| u.registrateable_type != 'Fan' }
+        @user.registrateable_type != 'Fan'
       end
+      can :view_private_communication, Registration, id: @user.id
     else
       can [:login_form, :login, :new, :create], Registration
     end
 
     case registrateable
       when Fan
-        can :manage, Fan, id: registrateable.id
+        can :cru, Fan, id: registrateable.id
       when Band
         can [:edit, :update], Band, id: registrateable.id
         can_take_step 'edit_media', Band
@@ -50,8 +55,8 @@ class Ability
 
     if @user.is?('Venue') || @user.is?('Band')
       can [:new, :create], Show, id: @user.id
-      can :crud, Show, venue_id: registrateable.id
-      can :crud, Show, band_id: registrateable.id
+      can :cru, Show, venue_id: registrateable.id
+      can :cru, Show, band_id: registrateable.id
       can [:index, :accept, :reject, :manage_selection], Request do |req_obj|
         (req_obj.requester == registrateable) || (req_obj.requested == registrateable)
       end

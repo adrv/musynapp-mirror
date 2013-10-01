@@ -1,6 +1,9 @@
 %h1
   = @fan.name
-= link_to 'Edit', edit_fan_path(@fan), class: 'btn'
+- if can?(:edit, @fan)
+  = link_to 'Edit', edit_fan_path(@fan), class: 'btn'
+- if can?(:destroy, @fan)
+  = link_to 'Destroy fan account', @fan, method: :delete, class: 'btn btn-danger', 'data-confirm'=>'Are you sure?'
 .row-fluid
   .span4
     %a.thumbnail

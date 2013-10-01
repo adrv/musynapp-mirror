@@ -12,11 +12,14 @@
               = hidden_field_tag :search_type, 'simple'
               = submit_tag '', class: 'invisible'
           .span6
-            - if current_user  
+            - if current_user
               %ul.nav.nav-list{style: 'display:inline;'}
                 %li.nav-header
                   %i.pull-left
-                    = link_to current_user.username, polymorphic_url(current_user.registrateable)
+                    - if !current_user.is?('Admin')
+                      = link_to current_user.username, polymorphic_url(current_user.registrateable)
+                    - else
+                      Admin
               = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
             - else
               = form_tag login_registrations_path do

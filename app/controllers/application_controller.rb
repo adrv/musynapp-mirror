@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def advance_registration_or_redirect_to path
-    proceed_registration || redirect_to(path)
+  def advance_registration_or_redirect_to user
+    proceed_registration || redirect_to(user)
   end
 
   def continue_registration_or_redirect_to user
@@ -52,16 +52,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def update_registrateable_process obj, params
+  def update_registrateable_process user, params
     if params.present?
-      result = obj.update_attributes(params)
+      result = user.update_attributes(params)
       if result
-        advance_registration_or_redirect_to obj
+        advance_registration_or_redirect_to user
       else
-        redirect_to obj.registration.current_step
+        redirect_to user.registration.current_step
       end
     else
-      advance_registration_or_redirect_to obj
+      advance_registration_or_redirect_to user
     end
   end
 

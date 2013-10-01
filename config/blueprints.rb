@@ -29,6 +29,10 @@ Band.blueprint do
   genre { Genre.all.sample || Genre.make! }
 end
 
+Admin.blueprint do
+  registration { Registration.make! registrateable: object }
+end
+
 Genre.blueprint do
   title { ['Acoustic', 'Ambient', 'Classical', 'Jazz & Blues', 'Dance / Electronic', 'Hip Hop', 'Pop', 'Reggae', 'Rock', 'Indie'].sample }
 end

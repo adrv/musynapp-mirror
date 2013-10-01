@@ -22,6 +22,12 @@ class VenuesController < ApplicationController
   def index
   end
 
+  def destroy
+    @venue.destroy
+    flash[:info] = "This account has been canceled"
+    redirect_to root_path
+  end
+
   def find
     render json: Venue.to_autocomplete(params[:query])
   end

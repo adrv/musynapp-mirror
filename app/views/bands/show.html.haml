@@ -3,12 +3,15 @@
 - if can?(:edit, @band)
   = link_to 'Edit media', edit_media_band_path(@band), class: 'btn'
   = link_to 'Edit info',  edit_band_path(@band), class: 'btn'
+- if can?(:view_private_communication, @band.registration)
   = link_to 'Requests box', requests_path, class: 'btn'
   = link_to 'Message box', conversations_path, class: 'btn'
   = link_to 'Propose a show', new_show_path, class: 'btn'
-- elsif can?(:send_message, @band.registration)
+- if can?(:send_message, @band.registration)
   %a.btn{"data-toggle" => "modal", href: "#myModal", role: "button"} Send a message
-  = render partial: 'shared/new_message_modal', locals: { recipient: @band }
+- if can?(:destroy, @band)
+  = link_to 'Destroy band account', @band, method: :delete, class: 'btn btn-danger', 'data-confirm'=>'Are you sure?'
+= render partial: 'shared/new_message_modal', locals: { recipient: @band }
 .row-fluid
   .span4
     = render partial: 'shared/media_side_content', locals: { content_type: :image, media: @band.images }

@@ -28,17 +28,17 @@ Musynapp::Application.routes.draw do
   end
 
 
-  resources :fans, only: [:edit, :update, :show] do
+  resources :fans, only: [:edit, :update, :show, :destroy] do
     collection { get 'find' }
   end
 
-  resources :venues, only: [:edit, :update, :show] do
+  resources :venues, only: [:edit, :update, :show, :destroy] do
     member { get 'edit_media' }
     member { get 'add_show' }
     collection { get 'find' }
   end
 
-  resources :bands, only: [:edit, :update, :show] do
+  resources :bands, only: [:edit, :update, :show, :destroy] do
     member { get 'edit_media' }
     collection { get 'find' }
     resources :images, only: :destroy, shallow: true

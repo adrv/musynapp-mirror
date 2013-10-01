@@ -17,6 +17,12 @@ class BandsController < ApplicationController
     update_registrateable_process @band, band_params
   end
 
+  def destroy
+    @band.destroy
+    flash[:info] = "This account has been canceled"
+    redirect_to root_path
+  end
+
   def find
     render json: Band.to_autocomplete(params[:query])
   end
@@ -31,7 +37,7 @@ class BandsController < ApplicationController
   private
 
   def band_params
-    params.require(:band).permit(:name, :genre_id, :description, :links, :primary_song_id,
+    params.require(:band).permit(:name, :genre_id, :description, :links, :id,
                                  { songs_attributes: [:upload], images_attributes: [:upload] } )
   end
 

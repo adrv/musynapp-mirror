@@ -1,14 +1,17 @@
 class Fan < ActiveRecord::Base
   has_attached_file :avatar
-  has_one :registration, as: :registrateable
-  has_many :friendships, class_name: 'FanFriendship'
+  has_one :registration, as: :registrateable, dependent: :destroy
+  has_many :friendships, class_name: 'FanFriendship', dependent: :destroy
   has_many :friends, :through => :friendships
-  has_many :inverse_friendships, :class_name => "FanFriendship", :foreign_key => "friend_id"
+  has_many :inverse_friendships, :class_name => "FanFriendship", :foreign_key => "friend_id", dependent: :destroy
   has_many :inverse_friends, :through => :inverse_friendships, :source => :fan
-  has_many :requests_sent, as: :requester, class_name: 'Request'
+  has_many :requests_sent, as: :requester, class_name: 'Request', dependent: :destroy
   has_and_belongs_to_many :favorite_venues, class_name: 'Venue'
   has_and_belongs_to_many :favorite_bands, class_name: 'Band'
   has_and_belongs_to_many :shows
+
+  before_destroy { favorite_bands.clear; favorite_venues.clear }
+
 
   include Autocomplete
 
@@ -46,6 +49,6 @@ class Fan < ActiveRecord::Base
   end
 
   # TODO:
-  # def facorites= type, ids
+  # def favorites= type, ids
 
 end

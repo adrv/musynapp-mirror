@@ -1,15 +1,16 @@
 class Show < ActiveRecord::Base
   
-  has_one :request
+  has_one :request, dependent: :destroy
   delegate :requester, :requested, :approved?, to: :request
-  has_many :address_requests, class_name: 'Request', foreign_key: 'show_address_id'
+  has_many :address_requests, class_name: 'Request', foreign_key: 'show_address_id', dependent: :destroy
   belongs_to :band
   belongs_to :venue
   has_and_belongs_to_many :fans
   
-  scope :completed, lambda { includes(:band, :venue).where('bands.virtual = ? AND venues.virtual = ?', false, false) }
-  scope :by_genre, lambda { |genre| includes(band: :genre).where('genres.title = ?', genre)}
-  
+  scope :completed, lambda { includes(:band, :venue).where('bands.virtual = ? AND venues.virtual = ?', false, false).references(:bands, :venues) }
+  scope :by_genre, lambda { |genre| includes(band: :genre).where('genres.title = ?', genre).references(:genres) }
+
+  before_destroy { fans.clear }
   after_create :send_request
 
   def address_exposed_for? user
