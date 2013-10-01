@@ -38,7 +38,7 @@ class Show < ActiveRecord::Base
     genres.each do |genre|
       result[genre] = self.by_genre(genre).upcoming(per_genre)
     end
-    result
+    result.sort_by{|genre, shows| shows.count }.reverse
   end
 
   def self.upcoming count=10
