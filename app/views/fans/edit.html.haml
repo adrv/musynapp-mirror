@@ -12,4 +12,4 @@
       = f.label :favorite_venues
       = f.input_field :favorite_venues_ids, data: { delimiter: ',', placeholder: "Look up for your favorite venues", url: find_venues_path }, multiple: true, class: "select2 input-block-level"
       %br
-      = f.button :submit, class: 'btn btn-primary'
+      = f.button :submit, value: 'Done', class: 'btn btn-primary'

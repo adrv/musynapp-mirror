@@ -1,8 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
+require 'faker'
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/rspec'
+require 'database_cleaner'
+require Rails.root.join('config', 'blueprints.rb')
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -12,6 +16,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+Capybara.javascript_driver = :webkit
+DatabaseCleaner.strategy = :truncation
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -20,6 +27,16 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
+  config.use_transactional_fixtures = false
+
+
+  config.before :each do
+    DatabaseCleaner.start
+  end
+
+  config.after :each do
+    DatabaseCleaner.clean
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -39,4 +56,25 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+end
+
+def login login, password = '123456'
+  visit root_path
+  fill_in 'username', with: login
+  fill_in 'password', with: password
+  click_on 'Log in'
+end
+
+def logout
+  Capybara.reset_sessions!
+end
+
+def generate_users
+  [Venue, Band, Fan].each do |user_type|
+    username = user_type.to_s.downcase
+    Registration.make!( password: '123456',
+                        password_confirmation: '123456',
+                        username: username,
+                        registrateable: user_type.make! )
+  end
 end

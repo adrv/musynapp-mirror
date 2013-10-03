@@ -5,14 +5,14 @@
       = form_tag manage_selection_requests_path do
         #selection_actions.invisible
           %h4 Selection actions
-          = submit_tag 'reject', class: 'btn btn-danger'
-          = submit_tag 'accept', class: 'btn btn-success'
+          = submit_tag 'reject', class: 'btn btn-danger', id: 'reject_all'
+          = submit_tag 'accept', class: 'btn btn-success', id: 'accept_all'
         %table.table
           %a#select_all{href: 'javascript:nil;'}
             Select all
           %thead
             %tr
-              %th Show
+              %th -
               %th Avatar
               %th Link
               %th -
@@ -22,18 +22,18 @@
           - @requests_proposed.each do |req|
             %tr
               %td
-                = link_to 'Link to show', req.show
+                = link_to 'Link to show', req.show || req.show_address
               %td
                 - if req.requester_type != 'Fan' and req.requester.images.present?
                   = image_tag req.requester.images.first.upload.url(:thumb)
                 - elsif req.requester_type == 'Fan'
                   = image_tag req.requester.avatar.url(:thumb)
               %td
-                = link_to (req.requester.try(:name) || req.requester_type ), req.requester
+                = link_to req.requester.name, req.requester
               %td
-                = link_to 'accept', accept_request_path(req), method: :post, class: 'btn btn-success'
+                = link_to 'accept', accept_request_path(req), method: :post, class: 'btn btn-success accept-request'
               %td
-                = link_to 'reject', reject_request_path(req), method: :post, class: 'btn btn-danger'
+                = link_to 'reject', reject_request_path(req), method: :post, class: 'btn btn-danger reject-request'
               %td
                 = check_box_tag 'request_ids[]', req.id, false, class: 'requests_selection'
 
@@ -50,9 +50,8 @@
             %td
               = link_to 'Link to show', req.show
             %td
-              = link_to req.requester.try(:name), req.requested
+              = link_to req.requested.try(:name), req.requested
             %td
               = req.state
-
     %br
     = link_to 'Archived requests', '#'

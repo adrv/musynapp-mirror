@@ -41,6 +41,7 @@ class RegistrationsController < ApplicationController
 
   def skip
     @registration.skip
+    flash[:success] = 'Your registration is complete'
     redirect_to polymorphic_url(current_user.registrateable)
   end
   

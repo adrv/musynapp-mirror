@@ -28,7 +28,7 @@
             .alert.alert-info
               %span 
                 You can
-                = link_to 'skip this proccess', skip_registration_path(current_user), method: :post
+                = link_to 'skip this process', skip_registration_path(current_user), method: :post, id: 'skip_registration'
                 if you wish
       = yield
     .container-fluid

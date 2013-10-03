@@ -1,18 +1,20 @@
-#myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
-  = form_tag Conversation.new do |f|
-    .modal-header
-      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-      %h3#myModalLabel
-        = "Message to"
-        %small
-          = recipient.name
-    .modal-body
-      %label Subject
-      %input{type: 'text', name: 'message[subject]'}
-      %label Message
-      %textarea{rows: 8, name: 'message[body]'}
-    .modal-footer
-      = hidden_field_tag :recipient_id, recipient.id
-      = hidden_field_tag :recipient_type, recipient.class.to_s
-      %input.btn.btn-primary{type: 'Submit', value: 'Send'}
-      %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_tag Conversation.new do |f|
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+          %h3#myModalLabel
+            = "Message to"
+            %small
+              = recipient.name
+        .modal-body
+          %label Subject
+          %input#messageSubject{type: 'text', name: 'message[subject]'}
+          %label Message
+          %textarea#messageBody{rows: 8, name: 'message[body]'}
+        .modal-footer
+          = hidden_field_tag :recipient_id, recipient.id
+          = hidden_field_tag :recipient_type, recipient.class.to_s
+          %input.btn.btn-primary{type: 'Submit', value: 'Send'}
+          %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close

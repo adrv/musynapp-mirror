@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '4.0.0'
 
@@ -7,7 +7,7 @@ gem 'state_machine'
 gem 'paperclip'
 gem 'rmagick'
 gem 'scoped_search'
-gem 'database_cleaner'
+gem 'database_cleaner', '1.0.1'
 gem 'cancan'
 gem 'mailboxer'
 gem 'machinist'
@@ -41,6 +41,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'launchy'
   gem 'machinist'
+  gem 'capybara-webkit'
 end
 
 group :production do

@@ -20,16 +20,13 @@ class RequestsController < ApplicationController
   end
 
   def manage_selection
-    @requests = Request.find(request_params[:request_ids])
-    commit = params[:commit]
-    if commit.in? %w(accept reject)
+    if params[:request_ids] and params[:commit].in? %w(accept reject)
+      @requests = Request.find(params[:request_ids])
+      commit = params[:commit]
       @requests.each { |req| req.send(commit) }
-      flash[:info] = "Successfully #{commit}ed" 
+      flash[:info] = "Successfully #{commit}ed all selected requests"
     end
     redirect_to requests_path
   end
 
-  def request_params
-    params.permit(request_ids: [])
-  end
 end

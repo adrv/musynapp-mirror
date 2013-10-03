@@ -8,4 +8,4 @@
     = answer.association :secret_question, label_method: :body, include_blank: '<select>'
     = answer.input :body, label: 'Answer'
   = f.input :registrateable_type, collection: %w(Fan Venue Band), selected: 1, label: 'I am a'
-  = f.button :submit, value: 'Next step'
+  = f.button :submit, value: 'Next step', class: 'btn btn-primary'

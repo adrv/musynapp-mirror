@@ -8,7 +8,7 @@
   = link_to 'Message box', conversations_path, class: 'btn'
   = link_to 'Propose a show', new_show_path, class: 'btn'
 - if can?(:send_message, @band.registration)
-  %a.btn{"data-toggle" => "modal", href: "#myModal", role: "button"} Send a message
+  %a.btn#sendMessage{"data-toggle" => "modal", href: "#myModal", role: "button"} Send a message
 - if can?(:destroy, @band)
   = link_to 'Destroy band account', @band, method: :delete, class: 'btn btn-danger', 'data-confirm'=>'Are you sure?'
 = render partial: 'shared/new_message_modal', locals: { recipient: @band }

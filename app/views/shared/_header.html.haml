@@ -17,7 +17,7 @@
                 %li.nav-header
                   %i.pull-left
                     - if !current_user.is?('Admin')
-                      = link_to current_user.username, polymorphic_url(current_user.registrateable)
+                      = link_to current_user.username, polymorphic_url(current_user.registrateable), id: 'my_profile'
                     - else
                       Admin
               = link_to "Log out", logout_registrations_path, method: :delete, class: 'btn'
@@ -26,6 +26,7 @@
                 = text_field_tag 'username', '', placeholder: 'Username', class: 'search-query'
                 %br
                 = text_field_tag 'password', '', placeholder: 'Password', type: 'password', class: 'search-query'
+                = submit_tag 'Log in', class: 'btn'
                 %br
                 = link_to 'Sign Up', new_registration_path
                 %br

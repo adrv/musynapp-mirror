@@ -25,17 +25,17 @@ namespace :objects do
     [Venue, Band, Fan].each do |user_type|
       username = user_type.to_s.downcase
       p username
-      reg = Registration.make!( password: '123456',
-                                password_confirmation: '123456',
-                                username: username,
-                                registrateable: user_type.make! )
+      Registration.make!( password: '123456',
+                          password_confirmation: '123456',
+                          username: username,
+                          registrateable: user_type.make! )
      end
   end
 
   task :clean do
     puts '--- cleaning all'
     DatabaseCleaner.strategy = :deletion
-    DatabaseCleaner.clean # cleanup of the test
+    DatabaseCleaner.clean
   end
 
   task :populate_genres do

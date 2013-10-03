@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     if current_user.pending?
       controller = current_user.registrateable_type.downcase.pluralize
       action = current_user.advance_registration || 'show'
-      puts controller, action
+      flash[:success] = 'Your registration is complete' if action == 'show'
       redirect_to controller: controller, action: action
     end
   end
